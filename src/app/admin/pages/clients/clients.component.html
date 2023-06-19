@@ -1,0 +1,75 @@
+<title-bar [title]="'Clientes'" [info]="'Listado de Clientes'"></title-bar>
+
+<div class="flex justify-center items-center h-full" *ngIf="clientLoading"><!--spinner-container-->
+    <mat-progress-spinner mode="determinate" color="warn"></mat-progress-spinner>
+    <mat-spinner></mat-spinner>
+</div>
+
+<operation-bar [disableFoward]="true" [addUrl]="'/register'" [backUrl]="'/admin'"></operation-bar><!--'/admin/clientadd'-->
+
+<div class="flex flex-col justify-center items-center mt-4 p-4 miborde">
+
+    <table mat-table [dataSource]="dataSource"
+        class="bg-indigo-600 shadow-2xl shadow-indigo-600/50 w-[70%] border-2 border-white text-center" *ngIf="!clientLoading">
+        <!---->
+
+        <ng-container matColumnDef="actions">
+            <th class="text-center" colspan="2" mat-header-cell *matHeaderCellDef>Acciones</th>       
+
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Editar</th>
+            <td mat-cell *matCellDef="let client">
+                <button mat-icon-button (click)="Edit(client)" ><!--[routerLink]="['clientedit', client.IdCliente]"-->
+                    <fa-icon [icon]="faEdit"></fa-icon>
+                </button>
+
+            </td>
+
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+            <!--Pregunatr aqui por el Cargo del Usuario*****************************-->
+            <td mat-cell *matCellDef="let client">
+
+                <button mat-icon-button color="warn" (click)="Delete(client)">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+                <!--
+                    color="warn"[disabled]="!CheckUserCanDeleteMPA(pedido.creadoPor)
+                [disabled]="user.estado==='INACTIVO'"
+                -->
+              
+            </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="clientId">
+            <th mat-header-cell *matHeaderCellDef>IdCliente</th>
+            <td mat-cell *matCellDef="let client">{{client.clientId}}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let client">{{client.firstName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+            <td mat-cell *matCellDef="let client">{{client.lastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let client">{{client.email}}</td>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsHeader"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator class="bg-indigo-600 shadow-2xl shadow-indigo-700/50 w-[70%] border-2 border-white" [length]="5"
+        [pageSize]="5" [pageSizeOptions]="[5,10]" [hidden]="clientLoading"></mat-paginator>
+    <!--|| userProfileListLoading-->
+
+    <!-- -->
+</div>

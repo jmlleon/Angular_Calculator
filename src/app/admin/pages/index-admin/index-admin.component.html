@@ -1,0 +1,25 @@
+<title-bar [title]="'Modulos'"></title-bar>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-row gap-4 p-4">
+
+<div *ngFor="let module of moduleArray" class="flex flex-col p-4 justify-center items-center bg-cyan-400 hover:bg-cyan-300 shadow-2xl shadow-cyan-500/50 rounded-xl">
+
+    <div class="flex justify-center items-center bg-white w-20 h-20 rounded-full border-indigo-800 border-2 outline-3 outline-white outline outline-offset-4">
+
+        <fa-icon [icon]="module.icon" class="fa-2x text-indigo-600"></fa-icon>  
+
+    </div>
+
+    <span class="text-white my-2 text-md uppercase">{{module.title}}</span>
+
+    <div class="my-2">
+
+        <button mat-raised-button class="bg-indigo-600 hover:bg-indigo-500" [routerLink]="module.link">Ver</button>
+
+    </div>
+   
+
+</div>
+
+
+</div>

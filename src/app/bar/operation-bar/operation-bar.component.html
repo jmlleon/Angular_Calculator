@@ -1,0 +1,20 @@
+<div class="flex flex-row ">
+
+    <div class="flex-1"></div>
+
+    <div class="rounded-md bg-gray-300 p-1 space-x-8">
+        <button mat-mini-fab color="primary" (click)="goAdd()" matTooltip="Agregar"  [disabled]="disableAdd"><!--matTooltipPosition=""-->
+            <fa-icon [icon]="faAdd" ></fa-icon>        
+        </button>
+        <button mat-mini-fab mat-icon-button color="primary" (click)="goBack()" matTooltip="Atras" [disabled]="disableBack">
+            <fa-icon [icon]="faArrowLeft"></fa-icon>
+        </button>
+        <button mat-mini-fab mat-icon-button color="primary" (click)="goFoward()" matTooltip="Adelante" [disabled]="disableFoward">
+            <fa-icon [icon]="faArrowRight"></fa-icon>
+        </button>    
+
+    </div>
+
+    
+
+</div>

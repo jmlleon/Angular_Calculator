@@ -1,0 +1,129 @@
+<mat-toolbar [ngClass]="bgModeValue+' flex flex-wrap flex-1'" *ngIf="!valuesLoading">
+  <!--mat-elevation-z3 color="primary"-->
+
+  <mat-toolbar-row class="h-24 rounded-md p-0"><!--class="miborde"-->    
+
+    <div class="flex flex-row flex-wrap w-full h-full p-1"><!--miborde border-red-800-->
+
+      <div class="flex flex-1 justify-start items-center"><!--miborde border-indigo-800 md:border-solid md:border-r-4 border-x border-white -->
+          
+        <a mat-button class="hover:text-gray-500 text-white" [routerLink]="'index'">
+          <fa-icon [icon]="faHome" [size]="'sm'"></fa-icon>
+        </a>
+        <!--class=""-->
+        <a mat-button class="text-white" [routerLink]="'/services'"> Servicios </a>
+        <!-- <mat-divider></mat-divider> -->
+        <a mat-button class="text-white" [routerLink]="'/products'"> Productos </a>
+        <a mat-button class="text-white" [routerLink]="'/team'">Nosotros</a>
+        <a *ngIf="isAuthenticated" mat-button class="text-white" [routerLink]="'/admin'">Administracion</a>
+
+        <span class="flex-1"></span>
+
+        <button mat-icon-button class="text-white sm:inline-block md:hidden">
+          <fa-icon [icon]="faBars" (click)="setToggle()"></fa-icon> <!-- <mat-icon >menu</mat-icon> -->
+        </button>
+  
+      </div>    
+
+      <!-- <img class="w-28 h-3/4 rounded-md hover:opacity-50" src="assets/logo/yuri.png"> -->
+      
+      <!-- <span class="flex-auto miborde text-black"></span> -->
+  
+      <div class="flex flex-1 justify-end sm:justify-center md:justify-end  items-center">
+  
+        <fa-icon class="text-white" [icon]="faMoon"></fa-icon>
+  
+        <mat-slide-toggle (change)="setBgMode()" ></mat-slide-toggle><!--class="w-11 h-5"-->
+  
+        <a mat-button class="text-white" [routerLink]="'/register'">
+          <fa-icon [icon]="faUser"></fa-icon> Registrarse
+        </a>
+
+        <a *ngIf="isAuthenticated" mat-button class="text-white" (click)="CerrarSession()">
+          <fa-icon [icon]="faSign"></fa-icon> Salir
+        </a>  
+  
+        <a *ngIf="!isAuthenticated" mat-button class="text-white" [routerLink]="'/login'">
+          <fa-icon [icon]="faSign"></fa-icon> Entrar
+        </a>        
+        <a mat-button (click)="RefreshToken()" class="text-white">Refresh</a>
+  
+      </div>
+
+    </div>  
+
+
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="relative bg-white sm:mt-2 md:mt-0"><!--bg-gradient-to-b from-yellow-500 to-white-->
+
+    <!--Yurisol Icon-->
+
+    <div class="flex justify-center items-center rounded-full p-2 h-24 w-24 bg-yellow-300 shadow-2xl shadow-yellow-500 border-2 border-black outline outline-yellow-500 outline-offset-4">     
+
+        <img class="w-auto h-auto rounded-md hover:opacity-50" src="assets/logo/yuri2.png">
+
+    <!-- <span class="uppercase rounded-lg p-1 bg-black text-yellow-500">yurisol</span> -->
+
+    </div>   
+
+    <!--User Icon-->
+    <div class="absolute flex h-12 w-40 right-5" *ngIf="isAuthenticated">     <!---->
+    
+      <div class="w-full relative flex flex-row justify-center items-center rounded-md bg-gray-300">
+      
+        <img class="absolute rounded-full h-14 w-14 -left-4" src="/assets/avatar/1.png">      
+      <span class="text-sm text-white">
+       {{authObject ? authObject.nombre:"--"}}
+      </span>
+
+     </div>
+      
+
+    </div> 
+   
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+<!-- 
+<nav>
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a href="#!" class="breadcrumb">First</a>
+      <a href="#!" class="breadcrumb">Second</a>
+      <a href="#!" class="breadcrumb">Third</a>
+    </div>
+  </div>
+</nav>  -->
+
+
+
+<!-- <mat-toolbar color="primary">
+    <span class="fill-remaining-space">
+      <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseover)="menuTrigger.openMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <span (mouseleave)="menuTrigger.closeMenu()">
+        <button mat-menu-item>
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+    </button>
+    <button mat-menu-item>
+          <mat-icon>people_outline</mat-icon>
+          <span>Connecting</span>
+        </button>
+    <button mat-menu-item>
+          <mat-icon>videocam</mat-icon>
+          <span>Let's talk</span>
+        </button>
+    <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+    </span>
+    </mat-menu>
+    </span>
+    <span class="fill-remaining-space">Application Title</span>
+  </mat-toolbar> -->

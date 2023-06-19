@@ -1,0 +1,49 @@
+
+
+<mat-dialog-title>
+    <div class="w-full text-center text-lg text-gray-600 uppercase font-semibold mb-3">Informacion</div>
+</mat-dialog-title>
+
+<mat-divider class="mb-2"></mat-divider>
+
+<mat-dialog-content class="text-center">
+
+    <p class="inline-block text-gray-600 text-sm">{{description}}</p> 
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="text-center relative">
+    
+    <button class="bg-indigo-600 inline-block absolute left-3 text-white hover:bg-indigo-500" mat-raised-button (click)="Acept()">Aceptar</button>
+    
+    <button class="bg-red-600 inline-block absolute right-3 text-white hover:bg-red-500" mat-raised-button (click)="Close()">Cancelar</button><!--shadow-2xl shadow-red-600-->
+
+</mat-dialog-actions>
+<!-- 
+
+
+<!-- <div class="flex flex-col bg-white w-full h-full m-0">
+
+   
+<div class="miborde">
+
+    <span class="text-base">Informacion</span>
+
+</div>
+
+<div>
+    <span>{{description}}</span>
+</div>
+
+<div class="flex flex-row">
+
+    <button class="bg-indigo-600" mat-raised-button (click)="Acept()">Aceptar</button>
+    
+    <button class="bg-red-600" mat-raised-button (click)="Close()">Cancelar</button>
+
+</div>
+
+</div> -->
+
+
+

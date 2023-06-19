@@ -1,0 +1,74 @@
+<div class="flex w-full h-full justify-center items-center">
+    
+    <div class="flex flex-col h-[70%] sm:w-[60%] md:w-[50%] rounded-md shadow-md shadow-black">
+
+        <div class="flex flex-row justify-center items-center bg-gradient-to-b from-gray-300 to-white rounded-t-md h-[15%] text-slate-500 "><!--border-b border-slate-100-->
+
+            <div class="w-28 h-auto ml-4">
+                <img src="./assets/logo/yuri2.png">
+            </div>           
+
+        </div>
+
+        <div class="flex h-[10%] justify-center items-center bg-white">
+            <span class="uppercase text-lg text-slate-500">Login</span>
+        </div>
+         
+
+        <div class="flex flex-col flex-1 rounded-b-md">  <!-- border-slate-500-->
+            
+            <!--Form-->
+
+            <div class="flex flex-auto h-[70%] p-2 bg-white justify-center items-start"><!-- border-red-800  bg-gradient-to-b from-gray-100 to-white-->
+
+                <form [formGroup]="formGroup">
+
+                    <div class="form-group">
+
+                        <mat-form-field class="text-indigo-700" appearance="outline">
+                            <mat-label>Login</mat-label>
+                            <input matInput type="text" formControlName="login" #login>
+                            <mat-icon class="text-indigo-400" matSuffix><fa-icon [icon]="faUserCircle"></fa-icon></mat-icon>
+                            <mat-error *ngIf="f['login'].valid  && (f['login'].dirty || f['login'].touched)">Introduzca El Nombre Por Favor</mat-error><!--formGroup.controls['login'].invalid-->
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <mat-form-field class="text-indigo-700" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="visiblePwd ? 'text':'password'" formControlName="password" #password>
+                            <mat-icon class="text-indigo-400" matSuffix (click)="SetVisible()" ><fa-icon [icon]="visiblePwd ? faEyeSlash:faEye"></fa-icon></mat-icon>
+                            <mat-error *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">Introduzca La Contraseña Por Favor</mat-error><!--controls['password'].invalid-->
+                        </mat-form-field>
+
+                    </div>                    
+
+                </form>       
+                
+
+            </div>
+
+            <!-- <span class="flex-1"></span> -->
+
+            <span class="text-xs font-bold bg-white mb-2 hover:cursor-pointer hover:text-blue-600" routerLink="/register">Registrarse</span>
+
+            <mat-progress-bar mode="indeterminate" color="warn" class="w-full" *ngIf="loginLoading"></mat-progress-bar>
+
+            <!-- <mat-divider></mat-divider> -->
+            
+            <div class="flex flex-auto h-[25%] justify-center items-center rounded-b-md bg-gradient-to-t from-gray-300 to-white"><!--border-t border-slate-200-->
+
+                <button class="rounded-md w-[40%] bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/50" mat-raised-button (click)="Login()" *ngIf="formGroup.valid">Entrar</button>
+
+                <button class="rounded-md w-[40%] bg-gray-500 text-white shadow-md shadow-gray-600/50" mat-raised-button [disabled]="true" *ngIf="formGroup.invalid">Entrar</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,16 @@
+
+
+::ng-deep mat-dialog-container {
+    /* background-color: blue !important; */
+    border: 1px solid gray;
+    border-radius: 10px !important;
+    
+  }
+
+
+  
+
+::ng-deep .dialogConf {
+    /* background-color: blue; */
+    padding: 0%;
+  }

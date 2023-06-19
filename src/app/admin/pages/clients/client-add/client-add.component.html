@@ -1,0 +1,16 @@
+<title-bar [title]="'Agregar Cliente'"></title-bar>
+
+<div class="flex justify-center items-center h-full" *ngIf="false" ><!--*ngIf="clientLoading" spinner-container-->
+    <mat-progress-spinner mode="determinate" color="warn"></mat-progress-spinner>
+    <mat-spinner></mat-spinner>
+</div>
+
+<operation-bar [disableAdd]="true" [backUrl]="'/admin/clients'"></operation-bar>
+
+<div class="flex flex-col bg-gray-300 miborde w-1/2 h-1/2 rounded-md mx-auto mt-4">  
+
+    <div class="uppercase border-b-white border-b-2 text-lg text-white">datos del cliente</div>
+
+
+
+</div>

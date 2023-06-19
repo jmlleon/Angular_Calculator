@@ -1,0 +1,27 @@
+
+<mat-sidenav-container>
+    <mat-sidenav [class]="bgModeValue" [opened]="opened" #sidenav role="navigation" ><!--mode="side" sfixedInViewport="true"-->
+      <mat-nav-list>
+  
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/accounts'"><fa-icon [icon]="faHome" class="mx-3"></fa-icon>Home </a><!--<i class="material-icons left">check</i>-->
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/create-account'"><fa-icon [icon]="faUser" class="mx-3"></fa-icon> Create Account </a>
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/contacts'"> Contacts </a>
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/create-contact'"> Create Contact </a>
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/activities'"> Activities </a>
+        <a class="hover:bg-indigo-700" mat-list-item [routerLink]="'/create-activity'"> Create Activity </a>
+        <a class="hover:bg-indigo-700" mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+  
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content ><!--cdkScrollable-->
+
+      <div class="content bg-indigo-100 text-center">
+  
+        <!-- <router-outlet></router-outlet> -->
+
+      </div>
+
+    </mat-sidenav-content>
+  
+  </mat-sidenav-container>

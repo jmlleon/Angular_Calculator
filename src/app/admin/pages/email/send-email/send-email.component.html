@@ -1,0 +1,91 @@
+<title-bar [title]="'Enviar Correo'"></title-bar>
+
+<operation-bar [disableFoward]="true" [disableAdd]="true" [backUrl]="'/admin/email'"></operation-bar>
+
+
+<div class="flex flex-row justify-end p-2 min-vh-100"><!---->
+
+
+    <div class="flex flex-col items-center mr-4 rounded-md bg-gray-300 h-auto md:w-3/5 w-1/2" ><!--*ngIf="!clientListLoading" miborde border-blue-600-->
+
+        <div class="flex justify-center items-center bg-gradient-to-b from-indigo-600 to-white border-1 h-8 w-full rounded-t-md text-white">
+            <span class="uppercase">Email Data</span>
+        </div>
+
+        <form [formGroup]="formGroup" (ngSubmit)="SendEmail()" class="flex flex-1 flex-col w-4/5 p-2">
+
+            <div class="flex flex-auto rounded-md bg-gray-200 justify-center items-center h-[20%] mb-2">
+
+                <mat-form-field appearance="outline" class="w-4/5">
+                    <mat-label>Asunto</mat-label>
+                    <input matInput type="text" formControlName="subject">
+                    <mat-error *ngIf="email['subject'].invalid && (email['subject'].dirty || email['subject'].touched)">El Asunto es Requerido</mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+            <div class="flex flex-auto rounded-md bg-gray-200 justify-center items-center h-[75%] mb-2">
+
+                <mat-form-field appearance="outline" class="w-4/5 mx-auto"><!--miborde border-blue-600-->
+
+                    <mat-label>Contenido</mat-label>
+                    <textarea matInput class="h-full w-full m-0" #autosize cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" formControlName="body"></textarea>
+                    <mat-error *ngIf="email['body'].invalid && (email['body'].dirty || email['body'].touched)">El Contenido es requerido</mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <button mat-raised-button class="w-4/5 mx-auto" color="primary" type="submit" [disabled]="this.formGroup.invalid">Enviar</button>
+
+        </form>
+
+    </div>
+
+    <div class="flex flex-col items-center rounded-md md:w-3/12 w-1/2 bg-gray-300" ><!--*ngIf="!clientListLoading"-->
+
+        <div class="flex justify-center items-center bg-gradient-to-b from-indigo-600 to-white border-1 h-8 w-full rounded-t-md text-white">
+            <span class="uppercase">Clientes</span>
+        </div>
+
+        <section class="w-4/5 h-[70%] overflow-auto mt-4 rounded-md bg-gray-200"><!--miborde border-red-600-->            
+           
+              <mat-checkbox [checked]="allComplete"
+                            color="primary"
+                            [indeterminate]="someComplete()"
+                            (change)="setAll($event.checked)" [disabled]="clientCheckedList.length===0">
+                Todos
+              </mat-checkbox>           
+            
+              <ul class="text-left">
+                <li *ngFor="let client of clientCheckedList">
+                  <!-- <mat-checkbox [(ngModel)]="client.checked"
+                                color="primary"
+                                (ngModelChange)="updateAllComplete()">
+                {{client.client.firstName}}                
+                  </mat-checkbox> -->
+                  <button mat-icon-button (click)="ClientChange(client.client)" >
+                    <fa-icon [ngClass]="client.checked ? 'text-blue-700 text-lg':'text-gray-500 text-lg'" [icon]="faUser"></fa-icon>
+                
+                </button>
+                  
+                  {{client.client.firstName}}
+
+                </li>
+              </ul>
+           
+          </section>
+
+          <span class="flex-1"></span>
+          
+          <div class="spinner-container" *ngIf="sendingEmail">       
+            <mat-spinner color="warn" [diameter]="50"></mat-spinner>            
+        </div>
+
+        <button mat-raised-button (click)="CallGapi()" color="primary">Llamar API</button>
+
+        <button mat-raised-button (click)="LoadUser()" color="primary">Load User</button>
+
+    </div>
+
+</div>

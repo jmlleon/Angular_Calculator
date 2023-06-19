@@ -1,0 +1,89 @@
+<title-bar [title]="'Modulo Usuario'" [info]="'Editar Usuario'"></title-bar>
+
+<operation-bar [disableAdd]="true" [disableFoward]="true" [backUrl]="'admin/users'"></operation-bar>
+
+<div class="flex justify-center items-center" *ngIf="userLoading || profileLoading">
+<mat-progress-spinner  mode="determinate"></mat-progress-spinner>
+<mat-spinner></mat-spinner>
+
+</div>
+
+<div *ngIf="!userLoading && !profileLoading" class="w-1/2 flex flex-col border-white border-2 rounded-md bg-gray-200 mx-auto mt-4 shadow-xl shadow-black/50"><!-- p-4-->
+
+    <div class="flex h-14 flex-auto justify-center items-center border-b-white border-b-2 bg-indigo-600 rounded-t-md"><!--bg-gradient-to-b from-black to-yellow-300-->
+
+        <span class="text-xl uppercase truncate text-white">Datos del Usuario</span>
+
+    </div>
+
+    <div class="flex-1"> 
+        
+        <form [formGroup]="formGroup" class="my-2 p-2">     <!--(ngSubmit)="AddUser()"-->
+    
+            <div class="form-group">
+       
+               <mat-form-field appearance="outline">
+                   <mat-label>Nombre</mat-label>
+                   <input matInput type="text" formControlName="firstName" #firstName>
+                   <mat-icon class="text-black" matSuffix><fa-icon [icon]="faPerson"></fa-icon></mat-icon>
+                   <mat-error *ngIf="formGroup.controls['firstName'].invalid">Campo Obligatorio</mat-error>
+                   </mat-form-field>    
+               
+               </div>   
+       
+            <div class="form-group">
+       
+               <mat-form-field appearance="outline">
+                   <mat-label>Apellidos</mat-label>
+                   <input matInput type="text" formControlName="lastName" #lastName>
+                   <mat-icon class="text-black" matSuffix><fa-icon [icon]="faPerson"></fa-icon></mat-icon>
+                   <mat-error *ngIf="formGroup.controls['lastName'].invalid">Campo Obligatorio</mat-error>
+                </mat-form-field>
+       
+            </div>
+
+            <div class="form-group">     
+                <mat-form-field appearance="outline">
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName="profile">                
+                <mat-option *ngFor="let profile of profileList" [value]="profile.idPerfil">{{profile.descripcion}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formGroup.controls['profile'].valid">Campo Obligatorio</mat-error>
+                
+            </mat-form-field>                  
+            </div>   
+       
+            <div class="form-group">
+       
+               <mat-form-field appearance="outline">
+                   <mat-label>Login</mat-label>
+                   <input matInput type="text" formControlName="login" #login>
+                   <mat-icon class="text-black" matSuffix><fa-icon [icon]="faUserCircle"></fa-icon></mat-icon>
+                   <mat-error *ngIf="formGroup.controls['login'].invalid">Campo Obligatorio</mat-error>
+                </mat-form-field>           
+                  
+            </div> 
+       
+            <div class="form-group">
+       
+               <mat-form-field appearance="outline">
+                   <mat-label>Contrasena</mat-label>
+                   <input matInput type="text" formControlName="password" #password>
+                   <mat-icon class="text-black" matSuffix><fa-icon [icon]="faEye"></fa-icon></mat-icon>
+                   <mat-error *ngIf="formGroup.controls['password'].invalid">Campo Obligatorio</mat-error>
+                </mat-form-field>
+       
+            </div>
+           
+           </form>
+
+    </div>
+
+    <div class="flex justify-center flex-auto h-14 bg-gray-300 border-2 border-t-white rounded-b-md p-1">
+
+        <button class="shadow-md uppercase bg-indigo-600 w-[40%] text-white hover:bg-indigo-500" mat-raised-button  [disabled]="userLoading || !this.formGroup.valid" (click)="EditUser()">Editar</button>
+    
+    </div>
+
+</div>
+

@@ -1,0 +1,128 @@
+<title-bar [title]="'Listado de Servicios'"></title-bar>
+
+<!-- <div class="grid grid-cols-1 p-3 gap-3 justify-items-center">
+
+    <service-card class="w-11/12 transition-transform transform hover:scale-105 cursor-pointer duration-300 ease-in-out" *ngFor="let card of arrayServices" [card]="card"></service-card>
+  
+</div> -->
+
+<div class="grid grid-cols-5 grid-flow-row p-3 gap-4 miborde">
+
+    <!--Titulo del Servicio-->
+    <div class="col-span-5 row-span-1 self-center">
+
+        <p class="text-2xl font-mono font-bold uppercase text-indigo-800">Despliegue de software</p>
+
+    </div>
+
+    <!--Imagen del Servicio-->
+
+    <div class="col-span-2 row-span-3 rounded-2xl self-center">
+        <!-- row-start-2 row-end-5 -->
+
+        <img class="h-auto w-auto rounded-2xl" src="assets/images/servicios3.jpg">
+
+    </div>
+
+    <!--Muneco del Centro-->
+
+    <div class="row-span-3 col-span-1 flex justify-center items-center self-center">
+
+        <div class="h-32 w-32 rounded-full"><img class="h-auto w-auto rounded-2xl" src="assets/avatar/2.png">
+        </div>
+
+
+    </div>
+
+
+    <!--Objetivos-->
+    <div
+        class="flex self-stretch flex-row justify-start items-center col-span-2 row-span-1 rounded-md border-slate-200 border p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3 fa-2x"></fa-icon>
+
+        <span class="text-justify font-semibold">Satisfacemos sus necesidades a partir de su eleccion</span>
+
+    </div>
+
+    <div class="flex flex-1 flex-row justify-start items-center col-span-2 row-span-1 rounded-md bg-indigo-400 p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3 fa-2x"></fa-icon>
+
+        <span class="text-justify font-semibold">Satisfacemos sus necesidades a partir de su eleccion</span>
+
+    </div>
+    <div
+        class="flex flex-1 flex-row justify-start items-center col-span-2 row-span-1 rounded-md border-slate-200 border p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3 fa-2x"></fa-icon>
+
+        <span class="text-justify font-semibold">Satisfacemos sus necesidades a partir de su eleccion</span>
+
+    </div>
+
+    <div class="col-span-5 row-span-1 my-14">
+        <mat-divider class="bg-slate-300"></mat-divider>
+    </div>
+
+
+    <!--Segundo Servicio pasar todos a un componente y repetir con ngFor-->
+
+
+    <div class="col-span-5 row-span-1 self-center">
+
+        <p class="text-2xl font-mono font-bold uppercase text-indigo-800">Servicio de Mantenimiento</p>
+
+    </div>
+
+    <!--Imagen del Servicio-->
+
+    <div class="col-span-2 row-span-3 rounded-2xl">
+        <!-- row-start-2 row-end-5 -->
+
+        <img class="h-auto w-auto rounded-2xl" src="assets/images/servicios3.jpg">
+
+    </div>
+
+    <!--Muñeco del Servicio-->
+
+    <div class="row-span-3 col-span-1 flex justify-center items-center self-center">
+
+        <div class="h-32 w-32 rounded-full"><img class="h-auto w-auto rounded-2xl" src="assets/avatar/2.png">
+        </div>
+
+
+    </div>
+
+    <!--Objetivos-->
+    <div
+        class="flex self-stretch flex-row justify-start items-center col-span-2 row-span-1 rounded-md border-slate-200 border p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3"></fa-icon>
+
+        <span class="text-justify font-semibold">Reparacion y Mantenimiento de Equipos de Computo</span>
+
+    </div>
+
+    <div class="flex flex-1 flex-row justify-start items-center col-span-2 row-span-1 rounded-md bg-indigo-400 p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3"></fa-icon>
+
+        <span class="text-justify font-semibold">Reparacion y Mantenimiento de Equipos de Computo</span>
+
+    </div>
+    <div
+        class="flex flex-1 flex-row justify-start items-center col-span-2 row-span-1 rounded-md border-slate-200 border p-2">
+
+        <fa-icon [icon]="faCheck" class="mx-3"></fa-icon>
+
+        <span class="text-justify font-semibold">Reparacion y Mantenimiento de Equipos de Computo</span>
+
+    </div>
+
+    <div class="col-span-4 row-span-1">
+        <mat-divider class="bg-indigo-800"></mat-divider>
+    </div>
+
+
+</div>

@@ -1,0 +1,16 @@
+/* ::ng-deep .snackBar-green {
+    background-color: rgb(34, 197, 94);
+    color: white;
+  }
+  
+ ::ng-deep .snackBar-green button {
+    background-color: white;
+    border: 1px solid green;
+    color: black;
+  } */
+  
+ ::ng-deep .snackBar {
+    padding: 0% !important;
+    margin: 0% !important;
+    /* border-radius: 20px !important; */
+  }

@@ -1,0 +1,18 @@
+<div [ngClass]="'flex flex-row p-2 justify-center items-center  w-full h-full m-0 text-white border-white border-2 '+cssColor">
+    <!--rounded-2xl-->
+
+    <!--[ngStyle]="{'color':(user.estado==='ACTIVO' ? 'red':'green')}"-->
+    <!--Title-->
+    <div class="mx-2 text-white">
+
+        {{data.title}}
+
+    </div>
+
+    <!--Action-->
+    <div>
+        <button mat-raised-button (click)="Close()" class="bg-black text-white hover:bg-gray-600">OK</button>
+    </div>
+
+
+</div>
