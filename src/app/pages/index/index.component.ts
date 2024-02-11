@@ -15,11 +15,12 @@ export class IndexComponent implements OnInit {
     {imgUrl:'assets/images/servicios4.jpg', category:'Nosotros', title:'Conocenos',description:'Descripcion Acerca de Nosotros'},
     {imgUrl:'assets/images/servicios4.jpg', category:'Nosotros', title:'Conocenos',description:'Descripcion Acerca de Nosotros'}
 
-  ];
+  ];  
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    // C = (F − 32) × 5/9
+    // F = C*9/5 + 32
   }
 
+  
 }
