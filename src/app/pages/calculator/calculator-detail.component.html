@@ -1,0 +1,63 @@
+<div class="bg-white w-[50%] mx-auto mb-2"><span class="text-lg text-indigo-600 bold my-16">Angular Calculator</span></div>
+
+
+<div class="border border-solid rounded-md border-slate-600 p-4">   
+
+<form [formGroup]="formGroup">
+
+<div class="form-group">
+   
+   <div class="rounded-md border border-solid border-slate-600 mt-2 p-4">
+
+      <mat-form-field appearance="outline" class="w-full "><!-- bg-black text-white-->
+
+      <input matInput formControlName="main-input" type="text" [value]="displayValue">
+
+      </mat-form-field>
+
+   </div>
+
+</div>
+
+<div class="rounded-md border border-solid border-slate-600 mt-3 p-4 text-center">
+
+<div class="grid grid-cols-4 gap-2 w-[50%] mx-auto">
+
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary">/</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('*')">*</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('-')">-</button></div>
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('7')">7</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('8')">8</button></div>
+
+<div class="text-center">   
+   <!-- <div class="border border-slate-300 border-solid w-fit mx-auto">9</div> -->
+   <button mat-raised-button color="primary">9</button>
+
+</div>
+
+<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="SetDisplay('+')">+</button></div>
+
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('4')">4</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('5')">5</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('6')">6</button></div>
+
+
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('1')">1</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('2')">2</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('3')">3</button></div>
+<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="Clear()">CLR</button></div>
+
+
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('0')">0</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary">.</button></div>
+
+
+
+</div>
+
+</div>
+</form>
+</div>
