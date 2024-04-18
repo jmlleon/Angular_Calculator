@@ -29,7 +29,6 @@ import { FooterComponent } from './footer/footer.component';
 
 
 import { ExampleBarComponent } from './bar/example-bar/example-bar.component';
-import { Example2BarComponent } from './bar/example2-bar/example2-bar.component';
 import { ExampleCardComponent } from './card/example-card/example-card.component';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -46,8 +45,7 @@ export function tokenGetter() {
     BarComponent,
     SideBarComponent,   
     FooterComponent,    
-    ExampleBarComponent,    
-    Example2BarComponent,   
+    ExampleBarComponent,     
     ExampleCardComponent,
   
   ],

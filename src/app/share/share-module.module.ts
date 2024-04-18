@@ -6,7 +6,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
 import { OperationBarComponent } from '../bar/operation-bar/operation-bar.component';
 import { MaterialModule } from '../material.module';
-import { DialogUserComponent } from './dialog/email/dialog-user.component'
+
 
 
 
@@ -16,7 +16,7 @@ import { DialogUserComponent } from './dialog/email/dialog-user.component'
     DialogComponent,
     SnackBarComponent,
     OperationBarComponent,
-    DialogUserComponent
+   
 
   ],
   imports: [
@@ -24,7 +24,7 @@ import { DialogUserComponent } from './dialog/email/dialog-user.component'
     MaterialModule        
   ],
 
-  exports:[TitleBarComponent, DialogComponent,DialogUserComponent, SnackBarComponent, OperationBarComponent],
+  exports:[TitleBarComponent, DialogComponent, SnackBarComponent, OperationBarComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],  
   entryComponents:[DialogComponent]
 })
