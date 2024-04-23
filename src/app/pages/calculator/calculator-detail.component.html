@@ -1,5 +1,6 @@
-<div class="bg-white w-[50%] mx-auto mb-2"><span class="text-lg text-indigo-600 bold my-16">Angular Calculator</span></div>
+<!-- <div class="bg-white w-[50%] mx-auto mb-2"><span class="text-lg text-indigo-600 bold my-16">Angular Calculator</span></div> -->
 
+<title-bar [title]="'Angular Calculator'"></title-bar>
 
 <div class="border border-solid rounded-md border-slate-600 p-4">   
 
@@ -23,35 +24,35 @@
 
 <div class="grid grid-cols-4 gap-2 w-[50%] mx-auto">
 
-<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary">/</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('*')">*</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('-')">-</button></div>
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('/', true)">/</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('*', true)">*</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('-', true)">-</button></div>
 
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('7')">7</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('8')">8</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('7',false)">7</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('8', false)">8</button></div>
 
 <div class="text-center">   
    <!-- <div class="border border-slate-300 border-solid w-fit mx-auto">9</div> -->
-   <button mat-raised-button color="primary">9</button>
+   <button mat-raised-button color="primary" (click)="SetDisplay('9', false)">9</button>
 
 </div>
 
-<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="SetDisplay('+')">+</button></div>
+<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="SetDisplay('+', true)">+</button></div>
 
 
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('4')">4</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('5')">5</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('6')">6</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('4', false)">4</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('5', false)">5</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('6', false)">6</button></div>
 
 
 
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('1')">1</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('2')">2</button></div>
-<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('3')">3</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('1', false)">1</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('2', false)">2</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('3', false)">3</button></div>
 <div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="Clear()">CLR</button></div>
 
 
-<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('0')">0</button></div>
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('0', false)">0</button></div>
 <div class="border border-slate-300 border-solid"><button mat-raised-button color="primary">.</button></div>
 
 

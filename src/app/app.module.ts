@@ -24,11 +24,7 @@ import { PageModule } from './pages/page.module';
 //Components
 import { AppComponent } from './app.component';
 import { BarComponent } from './bar/bar.component';
-import { SideBarComponent } from './bar/side-bar/side-bar.component';
 import { FooterComponent } from './footer/footer.component';
-
-
-import { ExampleBarComponent } from './bar/example-bar/example-bar.component';
 import { ExampleCardComponent } from './card/example-card/example-card.component';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -42,10 +38,8 @@ export function tokenGetter() {
   declarations: [
     
     AppComponent,
-    BarComponent,
-    SideBarComponent,   
-    FooterComponent,    
-    ExampleBarComponent,     
+    BarComponent,   
+    FooterComponent,            
     ExampleCardComponent,
   
   ],
