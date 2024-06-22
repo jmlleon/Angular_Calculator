@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/services/snackbar.service';
 
+
 @Component({
   selector: 'calculator-detail',
   templateUrl: './calculator-detail.component.html',
@@ -18,8 +19,9 @@ export class CalculatorDetailComponent implements OnInit {
   operators:string[]=["/","*","-","+"];
 
   currentOperator:string="";
-
-  currentValue:number=0;
+  firstValue:string="";
+  secondValue:string="";
+  readyOpt:boolean=false;
 
 
   constructor(
@@ -43,40 +45,42 @@ export class CalculatorDetailComponent implements OnInit {
 
   }
 
-  SetDisplay(value, isOperator:boolean){
+  SetDisplay(value){
 
-    if(this.ValidateInput(value, isOperator)){
+    
+    if(this.ValidateInput(value.buttonValue, value.isOperator)){
 
-      this.displayValue=this.displayValue+value;     
+      this.displayValue=this.displayValue+value.buttonValue;     
       
-      if(!isOperator){
+      //Is a Number
+      if(!value.isOperator){
 
          //If is the second value
 
          console.log("Not Operator");
 
          //var element=this.displayValue.charAt(this.displayValue.length-2);
-
          //console.log(element);
 
-        if(this.operators.includes(this.displayValue.charAt(this.displayValue.length-2))){
+        if(this.currentOperator!==""){//operators.includes(this.displayValue.charAt(this.displayValue.length-2))
 
           console.log("Calculate now");
-
-          this.Calculate(value);
+          this.readyOpt=true;
+          this.secondValue+=value.buttonValue;          
             
         }else{
 
           //If is the first value
           console.log("If is the first value");
-          this.currentValue=value;
+          this.firstValue+=value.buttonValue;
         }     
+
+
       
       }else{
 
-        console.log("Is Operator");
-
-        this.currentOperator=value;        
+        //console.log("Is Operator");
+        this.currentOperator=value.buttonValue;        
 
       }      
 
@@ -86,36 +90,58 @@ export class CalculatorDetailComponent implements OnInit {
 
   //Search the operators order and priority and get result
   
-  Calculate(value){
+  Calculate(){
 
     switch(this.currentOperator){
 
       case "+":
 
-      this.result=Number(this.currentValue)+Number(value);
-      this.displayValue=this.result.toString();
+      this.Sum();
 
       break;
 
       case "-":
 
-      this.result=Number(this.currentValue)-Number(value);
-      this.displayValue=this.result.toString();
+      this.Rest();
+
+      break;
+
+      case "*":
+
+      this.Multi();
 
       break;
 
       default:
 
-    }
-    
+      this.Divide()
+
+      break;
+
+    }    
 
   }
 
+
+  //Validate Input
   ValidateInput(inputValue, isOperator:boolean){
 
   
     if(isOperator){
 
+
+      if(inputValue==="="){
+        this.Calculate();
+        return false;
+
+    }      
+      
+      if(inputValue==="CLEAR"){
+          this.Clear();
+          return false;
+
+      }      
+      
       //The First Value Cannt be a operator
 
       if(this.displayValue.length===0){
@@ -142,39 +168,59 @@ export class CalculatorDetailComponent implements OnInit {
 
   }
 
-  PutValue(value){
+  Sum(){
 
-    this.formGroup.get("main-input").setValue(value);
-
-    this.result=value;
-
-
-  }
-
-  Sum(value){
-
-    this.formGroup.get("main-input").setValue(value);
+    this.result=Number(this.firstValue)+Number(this.secondValue);
+    this.displayValue=this.result.toString();
+    this.currentOperator="";
+    this.readyOpt=false;
+    //this.formGroup.get("main-input").setValue(value);
 
   }
 
-  Rest(value){
+  Rest(){
+
+    this.result=Number(this.firstValue)-Number(this.secondValue);
+    this.displayValue=this.result.toString();
+    this.currentOperator="";
+    this.readyOpt=false;
 
   }
 
-  Divide(value){
+  Multi(){
+
+    this.result=Number(this.firstValue) * Number(this.secondValue);
+    this.displayValue=this.result.toString();
+    this.currentOperator="";
+    this.readyOpt=false;
+
+  }
+
+  Divide(){
+
+    if(this.secondValue!=="0"){
+
+      this.result=Number(this.firstValue) / Number(this.secondValue);
+      this.displayValue=this.result.toString();
+      this.currentOperator="";
+      this.readyOpt=false;
+
+
+    }else{
+
+     this.snackBarSvc.OpenSnackBar({title:"Div under cero not allowed", type:"ERROR"});
+
+    }    
 
   }
 
 
   Clear(){
 
-    this.formGroup.get("main-input").setValue("");
+    this.formGroup.get("main-input").setValue("");   
     this.result=0;
-    this.currentValue=0;
-    this.displayValue="";
-    this.currentOperator="";
-
-
+    this.displayValue="", this.currentOperator="";
+    this.firstValue="", this.secondValue="";
   }
 
 

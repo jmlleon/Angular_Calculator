@@ -13,6 +13,7 @@ import { IndexComponent } from './index/index.component';
 import { CardComponent } from './index/card/card.component';
 import { MainComponent } from './main/main.component';
 import { CalculatorDetailComponent } from './calculator/calculator-detail.component';
+import { CalculatorCardComponent } from './calculator/card/card.component';
 
 
 
@@ -31,7 +32,9 @@ const routes:Routes=[
     CardComponent,
     MainComponent,    
     IndexComponent,   
-    CalculatorDetailComponent
+    CalculatorDetailComponent,
+    CalculatorCardComponent
+
   ],
   imports: [
     CommonModule,

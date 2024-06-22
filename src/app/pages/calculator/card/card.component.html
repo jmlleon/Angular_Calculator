@@ -1,0 +1,56 @@
+<div class="grid grid-cols-4 gap-2 w-full h-full mx-auto"><!--border-2 border-solid border-blue-700-->
+    
+        <div [class]="buttonElement.style" *ngFor="let buttonElement of data">
+            <button [class]="buttonElement.buttonStyle" mat-raised-button color="primary" (click)="SetDisplay(buttonElement.buttonValue, buttonElement.isOperator)">
+                {{buttonElement.buttonValue}}
+            </button>
+        </div>
+</div>
+
+
+
+
+
+<!--<div class="rounded-md border border-solid border-slate-600 mt-3 p-4 text-center">
+
+<div class="grid grid-cols-4 gap-2 w-full mx-auto border-2 border-solid border-blue-700">
+
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('/', true)">/</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('*', true)">*</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('-', true)">-</button></div>
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('7',false)">7</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('8', false)">8</button></div>
+
+<div class="text-center">   
+  
+   <button mat-raised-button color="primary" (click)="SetDisplay('9', false)">9</button>
+
+</div>
+
+<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="SetDisplay('+', true)">+</button></div>
+
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('4', false)">4</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('5', false)">5</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('6', false)">6</button></div>
+
+
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('1', false)">1</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('2', false)">2</button></div>
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary" (click)="SetDisplay('3', false)">3</button></div>
+
+
+<div class="border border-slate-300 border-solid row-span-2"><button class="h-full" mat-raised-button color="primary" (click)="Clear()">CLR</button></div>
+
+
+<div class="border border-slate-300 border-solid col-span-2 px-3"><button class="w-full" mat-raised-button color="primary" (click)="SetDisplay('0', false)">0</button></div>
+
+<div class="border border-slate-300 border-solid"><button mat-raised-button color="primary">.</button></div>
+
+
+
+</div>
+
+</div>-->
