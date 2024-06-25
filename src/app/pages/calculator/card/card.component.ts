@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { ButtonCard, ButtonType } from 'src/app/models/Calculator.model';
+import { BarService } from 'src/app/services/bar.service';
 
 
 @Component({
@@ -7,8 +8,9 @@ import { ButtonCard, ButtonType } from 'src/app/models/Calculator.model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CalculatorCardComponent implements OnInit {
+export class CalculatorCardComponent implements OnInit, OnChanges {
 
+  bgModeValue:string="";
 
   data:ButtonCard[]=[
   {style:'flex items-center justify-center border border-slate-300 border-solid px-2',buttonStyle:"w-full h-[80%]",buttonValue:"/" ,isOperator:true},  
@@ -32,9 +34,21 @@ export class CalculatorCardComponent implements OnInit {
 
   @Output() buttonEmitter=new EventEmitter<ButtonType>();
 
-  constructor() { }
+  constructor(private barSvc:BarService) { }
 
   ngOnInit(): void {
+
+    this.setBgMode();
+  }
+
+  setBgMode(){
+    this.barSvc.bgMode$.subscribe(mode=>{
+      this.bgModeValue=mode;
+    })
+  }
+
+  ngOnChanges(){
+    
   }
 
   SetDisplay(value:string, isOperator:boolean){    

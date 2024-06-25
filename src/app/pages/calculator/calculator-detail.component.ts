@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BarService } from 'src/app/services/bar.service';
 import { SnackBarService } from 'src/app/services/snackbar.service';
 
 
@@ -23,10 +24,13 @@ export class CalculatorDetailComponent implements OnInit {
   secondValue:string="";
   readyOpt:boolean=false;
 
+  bgModeValue:string="";
+
 
   constructor(
     private fb:FormBuilder,
-    private snackBarSvc:SnackBarService
+    private snackBarSvc:SnackBarService,
+    private barSvc:BarService
 
   ) {
 
@@ -56,22 +60,20 @@ export class CalculatorDetailComponent implements OnInit {
       if(!value.isOperator){
 
          //If is the second value
-
-         console.log("Not Operator");
-
+         //console.log("Not Operator");
          //var element=this.displayValue.charAt(this.displayValue.length-2);
-         //console.log(element);
+         
 
         if(this.currentOperator!==""){//operators.includes(this.displayValue.charAt(this.displayValue.length-2))
 
-          console.log("Calculate now");
+          //console.log("Calculate now");
           this.readyOpt=true;
           this.secondValue+=value.buttonValue;          
             
         }else{
 
           //If is the first value
-          console.log("If is the first value");
+          //console.log("If is the first value");
           this.firstValue+=value.buttonValue;
         }     
 
@@ -133,8 +135,7 @@ export class CalculatorDetailComponent implements OnInit {
       if(inputValue==="="){
         this.Calculate();
         return false;
-
-    }      
+       }      
       
       if(inputValue==="CLEAR"){
           this.Clear();

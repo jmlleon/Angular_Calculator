@@ -11,7 +11,7 @@ import { ShareModule } from '../share/share-module.module';
 
 import { IndexComponent } from './index/index.component';
 import { CardComponent } from './index/card/card.component';
-import { MainComponent } from './main/main.component';
+
 import { CalculatorDetailComponent } from './calculator/calculator-detail.component';
 import { CalculatorCardComponent } from './calculator/card/card.component';
 
@@ -29,8 +29,7 @@ const routes:Routes=[
 
 @NgModule({
   declarations: [
-    CardComponent,
-    MainComponent,    
+    CardComponent,      
     IndexComponent,   
     CalculatorDetailComponent,
     CalculatorCardComponent
