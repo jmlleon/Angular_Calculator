@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { SnackBarService } from 'src/app/services/snackbar.service';
+
 
 @Component({
   selector: 'calculator-detail',
@@ -18,104 +20,129 @@ export class CalculatorDetailComponent implements OnInit {
   operators:string[]=["/","*","-","+"];
 
   currentOperator:string="";
-
-  currentValue:number=0;
-
+  firstValue:string="";
+  secondValue:string="";
+  
+  errorOp=false;
 
   constructor(
     private fb:FormBuilder,
-    private snackBarSvc:SnackBarService
+    private snackBarSvc:SnackBarService   
 
   ) {
 
     this.formGroup=fb.group({
 
-      "main-input":["", ]//Validators.pattern()
+      "main-input":[""]//Validators.pattern()
 
-    }
-
+     }
     )
 
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
+
+  }
+
+  
+
+  //***A method to search operators and calculate***
+
+  SearchOperator(){
+
+    let index:number=0;
+    this.errorOp=false;
+
+    while(index < this.operators.length){
+
+     
+      while(this.displayValue.indexOf(this.operators[index])>-1){
+
+
+       let operatorIndex=this.displayValue.indexOf(this.operators[index]);       
+       
+       let backSubstring=this.displayValue.substring(0,operatorIndex);
+
+       let nextSubstring=this.displayValue.substring(operatorIndex+1);
+
+       let maxIndexOperator=-1;
+
+       let minIndexOperator=nextSubstring.length;      
+
+       this.operators.forEach(op=>{maxIndexOperator=backSubstring.lastIndexOf(op)>maxIndexOperator?backSubstring.lastIndexOf(op):maxIndexOperator;});  
+       
+       this.operators.forEach(op=>{minIndexOperator=nextSubstring.indexOf(op)<minIndexOperator && nextSubstring.indexOf(op) > -1 ?nextSubstring.indexOf(op):minIndexOperator;});
+
+       this.currentOperator=this.operators[index];
+       this.firstValue=backSubstring.substring(maxIndexOperator+1);
+       this.secondValue=nextSubstring.substring(0, minIndexOperator);     
+
+       this.Calculate();     
+       
+       if(this.errorOp){return;}
+       
+       //To Check Last Operation
+       if(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length){
+         this.displayValue=backSubstring.substring(0,maxIndexOperator+1)+this.result.toString()+nextSubstring.substring(minIndexOperator); 
+        }
+        else{
+        this.displayValue=this.result.toString();
+       }
+
+       
+      /*console.log('Operator Index '+operatorIndex);
+      console.log('Min index operator initial '+minIndexOperator)
+      console.log('Max index operator '+op+'index '+maxIndexOperator);
+      console.log('Min index operator '+op+'index '+minIndexOperator);
+
+      console.log('Back substring '+backSubstring);
+      console.log('Next substring '+nextSubstring);
+      console.log('Operator is '+this.operators[index]);
+      console.log(this.displayValue);
+      console.log('Index is '+index);*/
+       
+
+      }
+
+      index++;
+      
+
+    }    
 
 
   }
 
-  SetDisplay(value, isOperator:boolean){
+  SetDisplay(value){
+    
+    if(this.ValidateInput(value.buttonValue, value.isOperator)){
 
-    if(this.ValidateInput(value, isOperator)){
-
-      this.displayValue=this.displayValue+value;     
-      
-      if(!isOperator){
-
-         //If is the second value
-
-         console.log("Not Operator");
-
-         //var element=this.displayValue.charAt(this.displayValue.length-2);
-
-         //console.log(element);
-
-        if(this.operators.includes(this.displayValue.charAt(this.displayValue.length-2))){
-
-          console.log("Calculate now");
-
-          this.Calculate(value);
-            
-        }else{
-
-          //If is the first value
-          console.log("If is the first value");
-          this.currentValue=value;
-        }     
-      
-      }else{
-
-        console.log("Is Operator");
-
-        this.currentOperator=value;        
-
-      }      
+      this.displayValue=this.displayValue+value.buttonValue;     
 
     }   
 
   }
 
-  //Search the operators order and priority and get result
   
-  Calculate(value){
-
-    switch(this.currentOperator){
-
-      case "+":
-
-      this.result=Number(this.currentValue)+Number(value);
-      this.displayValue=this.result.toString();
-
-      break;
-
-      case "-":
-
-      this.result=Number(this.currentValue)-Number(value);
-      this.displayValue=this.result.toString();
-
-      break;
-
-      default:
-
-    }
-    
-
-  }
-
+  //Validate Input
   ValidateInput(inputValue, isOperator:boolean){
 
-  
+    //For Operators
     if(isOperator){
 
+      if(inputValue==="="){
+
+        //Search Operators and Calculate
+
+        this.SearchOperator();
+        return false;
+       }      
+      
+      if(inputValue==="CLEAR"){
+          this.Clear();
+          return false;
+
+      }      
+      
       //The First Value Cannt be a operator
 
       if(this.displayValue.length===0){
@@ -142,41 +169,67 @@ export class CalculatorDetailComponent implements OnInit {
 
   }
 
-  PutValue(value){
 
-    this.formGroup.get("main-input").setValue(value);
 
-    this.result=value;
+  //Search the operators order and priority and get result
+  
+  Calculate(){
 
+    switch(this.currentOperator){
+
+      case "+":
+
+      this.Sum();
+
+      break;
+
+      case "-":
+
+      this.Rest();
+
+      break;
+
+      case "*":
+
+      this.Multi();
+
+      break;
+
+      default:
+
+      this.Divide()
+
+      break;
+
+    }    
 
   }
 
-  Sum(value){
 
-    this.formGroup.get("main-input").setValue(value);
+  Sum(){this.result=Number(this.firstValue)+Number(this.secondValue); }
 
+  Rest(){this.result=Number(this.firstValue)-Number(this.secondValue);}
+
+  Multi(){this.result=Number(this.firstValue) * Number(this.secondValue); }
+
+  Divide(){
+
+    if(Number(this.secondValue)===0){
+      this.snackBarSvc.OpenSnackBar({title:"Div under cero not allowed", type:"ERROR"});
+      this.errorOp=true;
+      this.Clear();
+    }else{
+      this.result=Number(this.firstValue) / Number(this.secondValue);
+    }        
+  
   }
 
-  Rest(value){
 
-  }
-
-  Divide(value){
-
-  }
-
-
-  Clear(){
-
-    this.formGroup.get("main-input").setValue("");
+  Clear(){       
     this.result=0;
-    this.currentValue=0;
-    this.displayValue="";
-    this.currentOperator="";
-
-
+    this.displayValue="", this.currentOperator="",this.firstValue="",this.secondValue="";  
+    //this.errorOp=false;  
   }
-
 
 
 }

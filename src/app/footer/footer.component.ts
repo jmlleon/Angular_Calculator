@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faFacebook, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { BarService, BgModType } from '../services/bar.service';
+import { BarService } from '../services/bar.service';
+import { BgModType } from '../models/Enum.model';
 
 @Component({
   selector: 'footer-component',
