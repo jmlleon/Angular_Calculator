@@ -10,7 +10,6 @@ import { ShareModule } from '../share/share-module.module';
 
 
 import { IndexComponent } from './index/index.component';
-import { CardComponent } from './index/card/card.component';
 
 import { CalculatorDetailComponent } from './calculator/calculator-detail.component';
 import { CalculatorCardComponent } from './calculator/card/card.component';
@@ -19,17 +18,13 @@ import { CalculatorCardComponent } from './calculator/card/card.component';
 
 
 const routes:Routes=[
-  {path:'',component:CalculatorDetailComponent},
+  {path:'',component:IndexComponent},
   {path:'index',component:IndexComponent}, 
-  {path:'calculator',component:CalculatorDetailComponent}, 
-  //{path:'login',component:Component, canActivate:[RouteGuard]}
-
 ]
 
 
 @NgModule({
-  declarations: [
-    CardComponent,      
+  declarations: [         
     IndexComponent,   
     CalculatorDetailComponent,
     CalculatorCardComponent

@@ -1,14 +1,7 @@
 import { compileFactoryFunction } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import {
-  faBars,
-  faHome,
-  faMoon,
-  faSign,
-  faSignInAlt,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import { BarService, BgModType } from '../services/bar.service';
+import {faHome,faMoon} from '@fortawesome/free-solid-svg-icons';
+import { BarService } from '../services/bar.service';
 import { SnackBarService } from '../services/snackbar.service';
 
 @Component({
@@ -17,42 +10,28 @@ import { SnackBarService } from '../services/snackbar.service';
   styleUrls: ['./bar.component.css'],
 })
 export class BarComponent implements OnInit {
-  faHome = faHome;
-  faBars = faBars;
-  faUser = faUser;
-  faMoon = faMoon;
-  faSign = faSignInAlt;
+  faHome = faHome;  
+  faMoon = faMoon;  
 
-  isAuthenticated = false;
+  isAuthenticated = false; valuesLoading = true;
 
-   bgModeValue: string = '';
-
-  valuesLoading = true;
+  bgModeValue: string = '';  
 
   constructor(
-    private barService: BarService,
-
-    private snackBarSvc: SnackBarService,
+    private barService: BarService   
     
   ) {}
 
-  ngOnInit() {
-    // this.valuesLoading=true;
-
-   
+  ngOnInit() {      
 
     this.bgModeLoad();
-
-    this.valuesLoading = false;
-
-    
+    this.valuesLoading = false;    
   }
   
 
   bgModeLoad() {
     this.barService.bgMode$.subscribe((mode) => {
-      this.bgModeValue = mode;
-      console.log(mode);
+      this.bgModeValue = mode;      
     });
   }
 
@@ -60,11 +39,7 @@ export class BarComponent implements OnInit {
     this.barService.seToggle();
   }
 
-  setBgMode() {
-    if (this.bgModeValue === BgModType.blue) {
-      this.barService.setBgMode(BgModType.black);
-    } else {
-      this.barService.setBgMode(BgModType.blue);
-    }
+  setBgMode() {     
+    this.barService.setBgMode();   
   }
 }

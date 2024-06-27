@@ -1,45 +1,31 @@
 <mat-toolbar [ngClass]="bgModeValue+' flex flex-wrap flex-1'" *ngIf="!valuesLoading">
-  <!--mat-elevation-z3 color="primary"-->
+  
+  <mat-toolbar-row class="h-24 rounded-md p-0">   
 
-  <mat-toolbar-row class="h-24 rounded-md p-0"><!--class="miborde"-->    
+    <div class="flex flex-row flex-wrap w-full h-full p-1">
 
-    <div class="flex flex-row flex-wrap w-full h-full p-1"><!--miborde border-red-800-->
-
-      <div class="flex flex-1 justify-start items-center"><!--miborde border-indigo-800 md:border-solid md:border-r-4 border-x border-white -->
+      <div class="flex flex-1 justify-start items-center">
           
         <a mat-button class="hover:text-gray-500 text-white" [routerLink]="'index'">
           <fa-icon [icon]="faHome" [size]="'sm'"></fa-icon>
-        </a>
-        <!--class=""-->
-        <a mat-button class="text-white" [routerLink]="'/services'"> Calculator </a>
-              
+         </a>                     
 
         <span class="flex-1"></span>
 
-        <button mat-icon-button class="text-white sm:inline-block md:hidden">
-          <fa-icon [icon]="faBars" (click)="setToggle()"></fa-icon> <!-- <mat-icon >menu</mat-icon> -->
-        </button>
+        <!-- <button mat-icon-button class="text-white sm:inline-block md:hidden">
+          <fa-icon [icon]="faBars" (click)="setToggle()"></fa-icon>
+        </button>-->
   
       </div>    
 
-      <!-- <img class="w-28 h-3/4 rounded-md hover:opacity-50" src="assets/logo/yuri.png"> -->
-      
+      <!-- <img class="w-28 h-3/4 rounded-md hover:opacity-50" src="assets/logo/yuri.png"> -->      
       <!-- <span class="flex-auto miborde text-black"></span> -->
   
       <div class="flex flex-1 justify-end sm:justify-center md:justify-end  items-center">
   
         <fa-icon class="text-white" [icon]="faMoon"></fa-icon>
   
-        <mat-slide-toggle (change)="setBgMode()" ></mat-slide-toggle><!--class="w-11 h-5"-->
-  
-        <!-- <a mat-button class="text-white" [routerLink]="'/register'">
-          <fa-icon [icon]="faUser"></fa-icon> Registrarse
-        </a>       
-  
-        <a *ngIf="!isAuthenticated" mat-button class="text-white" [routerLink]="'/login'">
-          <fa-icon [icon]="faSign"></fa-icon> Entrar
-        </a>        
-       -->
+        <mat-slide-toggle (change)="setBgMode()" ></mat-slide-toggle>   
   
       </div>
 
@@ -48,15 +34,15 @@
 
   </mat-toolbar-row>
 
-  <mat-toolbar-row class="relative bg-white sm:mt-2 md:mt-0"><!--bg-gradient-to-b from-yellow-500 to-white-->
+  <mat-toolbar-row class="relative bg-white sm:mt-2 md:mt-0">
 
-    <!--Yurisol Icon-->
+    <!--Angular Icon-->
 
-    <!-- <div class="flex justify-center items-center rounded-full p-2 h-24 w-24 bg-yellow-300 shadow-2xl shadow-yellow-500 border-2 border-black outline outline-yellow-500 outline-offset-4">     
+   <div class="flex justify-center items-center rounded-full p-2 h-24 w-24 bg-white shadow-2xl shadow-black border-2 border-red-800 outline outline-red-800 outline-offset-4">     
 
-        <img class="w-auto h-auto rounded-md hover:opacity-50" src="assets/logo/yuri2.png">
+        <img class="w-auto h-auto rounded-md hover:opacity-50" src="assets/icon/angular2.png">
 
-    </div>    -->   
+    </div> 
 
   </mat-toolbar-row>
 

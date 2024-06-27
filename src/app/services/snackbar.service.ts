@@ -18,7 +18,19 @@ export class SnackBarService {
   constructor(
     private snackBar:MatSnackBar
   ) { }
+ 
 
+  OpenSnackBar(data: SnackBarData) {
+
+    let snb = this.snackBar.openFromComponent(SnackBarComponent, { data: data, duration: 5000, panelClass:['snackBar'] })//duration: 5000 
+
+    snb.afterDismissed().subscribe(() => {
+     // console.log("cerrado");
+      
+    })
+
+
+  }
 
   OpenSnackBarTest(content:string, action:string) {
 
@@ -28,19 +40,6 @@ export class SnackBarService {
 
       snb.dismiss();
     });
-
-  }
-
-  OpenSnackBar(data: SnackBarData) {
-
-    let snb = this.snackBar.openFromComponent(SnackBarComponent, { data: data, panelClass:['snackBar'] })//duration: 5000 
-
-    snb.afterDismissed().subscribe(() => {
-
-      console.log("cerrado");
-      //snb.dismiss();
-    })
-
 
   }
 

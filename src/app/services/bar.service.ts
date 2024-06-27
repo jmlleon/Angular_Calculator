@@ -1,21 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BgModType } from '../models/Enum.model';
 
-
-export enum BgModType{
-
-  //blue="mat-elevation-z3 bg-white hover:bg-gray-100 text-black",
-  blue="bg-indigo-600 hover:bg-indigo-500 shadow-md shadow-indigo-500/50",
-  black="mat-elevation-z3 bg-black hover:bg-gray-700"
-  
-}
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class BarService { 
-  
+
 
   private toggle: boolean = false;
   private toggleSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -40,10 +33,16 @@ export class BarService {
 
   }
 
-  public setBgMode(mode:string){
-    
-    this.bgMode=mode;
-    this.bgModeSubject.next(mode);
+  
+  public setBgMode(){   
+
+    if (this.bgMode === BgModType.blue) {
+      this.bgMode=BgModType.black;         
+    } else {
+      this.bgMode=BgModType.blue;
+    }
+
+    this.bgModeSubject.next(this.bgMode);    
 
   }
 

@@ -22,33 +22,20 @@ export class SnackBarComponent implements OnInit {
      @Inject(MAT_SNACK_BAR_DATA) public data:SnackBarData
      ) { }
 
-  ngOnInit(): void {
-
-   if(this.data.type==="OK"){
-
-    this.cssColor="bg-green-500";
-
-   }else{
-
-    this.cssColor="bg-red-600";
-
-   }
-
-
+  ngOnInit(): void { 
+   this.cssColor=this.data.type==="OK" ? "bg-green-500":"bg-red-600";
   }
 
 
   Close(){
-
   this.sbRef.dismiss();
-
   }
 
   afterDismissed(){
 
     this.sbRef.afterDismissed().subscribe(()=>{
 
-      console.log("Dismissed");
+      //console.log("Dismissed");
     })
   }
 
@@ -56,7 +43,7 @@ export class SnackBarComponent implements OnInit {
 
     this.sbRef.onAction().subscribe(()=>{
 
-      console.log("OnAction");
+      //console.log("OnAction");
     })
 
   }
