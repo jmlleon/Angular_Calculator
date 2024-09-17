@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {faHome,faMoon} from '@fortawesome/free-solid-svg-icons';
 import { BarService } from '../services/bar.service';
 import { SnackBarService } from '../services/snackbar.service';
+import { BgModType } from '../models/Enum.model';
 
 @Component({
   selector: 'bar',
@@ -16,6 +17,8 @@ export class BarComponent implements OnInit {
   isAuthenticated = false; valuesLoading = true;
 
   bgModeValue: string = '';  
+
+  isDark=false;
 
   constructor(
     private barService: BarService   
@@ -31,7 +34,8 @@ export class BarComponent implements OnInit {
 
   bgModeLoad() {
     this.barService.bgMode$.subscribe((mode) => {
-      this.bgModeValue = mode;      
+      this.bgModeValue = mode;  
+      this.isDark=this.bgModeValue===BgModType.black ? true:false;    
     });
   }
 

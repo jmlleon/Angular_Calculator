@@ -25,7 +25,8 @@
   
         <fa-icon class="text-white" [icon]="faMoon"></fa-icon>
   
-        <mat-slide-toggle (change)="setBgMode()" ></mat-slide-toggle>   
+        <mat-slide-toggle (change)="setBgMode()" ></mat-slide-toggle>        
+        
   
       </div>
 
@@ -38,7 +39,7 @@
 
     <!--Angular Icon-->
 
-   <div class="flex justify-center items-center rounded-full p-2 h-24 w-24 bg-white shadow-2xl shadow-black border-2 border-red-800 outline outline-red-800 outline-offset-4">     
+   <div [class]="(isDark ? 'border-black outline-black': 'border-red-800 outline-red-800')+' flex justify-center items-center rounded-full p-2 h-24 w-24 outline bg-white shadow-2xl shadow-black border-2 outline-offset-4'">     
 
         <img class="w-auto h-auto rounded-md hover:opacity-50" src="assets/icon/angular2.png">
 

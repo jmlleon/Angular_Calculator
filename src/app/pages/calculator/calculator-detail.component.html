@@ -12,7 +12,12 @@
 
       <mat-form-field appearance="outline" class="w-full">
 
-      <input matInput formControlName="main-input" type="text" [value]="displayValue" [readonly]="true">
+      <input matInput formControlName="inputField" type="text" [value]="displayValue" [readonly]="true">
+
+      <!--formGroup.controls['inputField'].errors?.['passwordStrength']-->
+      <div class="field-message" *ngIf="inputField?.hasError('passwordStrength')">
+         Your password must have lower case, upper case and numeric characters.
+      </div>
 
       </mat-form-field>
 

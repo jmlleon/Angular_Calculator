@@ -5,3 +5,9 @@ export enum BgModType{
     black="mat-elevation-z3 bg-black hover:bg-gray-700"
     
   }
+
+
+  export enum CalculatorType{    
+    Sum='sum',
+    Rest='rest'
+  }

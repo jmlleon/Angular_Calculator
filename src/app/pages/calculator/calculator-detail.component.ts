@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ButtonType } from 'src/app/models/Calculator.model';
+import { CalculatorFactory } from 'src/app/models/CalculatorFactory.model';
+import { CalculatorType } from 'src/app/models/Enum.model';
+import { ICalculator } from 'src/app/models/Interfaces/ICalculator.model';
 
 import { SnackBarService } from 'src/app/services/snackbar.service';
+import { CustomValidators } from 'src/app/share/validation/validation.directive';
 
 
 @Component({
@@ -25,6 +30,8 @@ export class CalculatorDetailComponent implements OnInit {
   
   errorOp=false;
 
+  buttonType:ButtonType;
+
   constructor(
     private fb:FormBuilder,
     private snackBarSvc:SnackBarService   
@@ -33,7 +40,7 @@ export class CalculatorDetailComponent implements OnInit {
 
     this.formGroup=fb.group({
 
-      "main-input":[""]//Validators.pattern()
+      "inputField":["", [CustomValidators.calculatorValidator()]]//Validators.pattern()
 
      }
     )
@@ -44,30 +51,34 @@ export class CalculatorDetailComponent implements OnInit {
 
   }
 
-  
+  get inputField(){
+
+    return this.formGroup.get("inputField");
+
+  }
 
   //***A method to search operators and calculate***
 
   SearchOperator(){
+   
 
-    let index:number=0;
+    let index:number=0,operatorIndex=-1, maxIndexOperator=-1, minIndexOperator=-1;
+    let backSubstring="",nextSubstring="";
     this.errorOp=false;
 
+    //Search Operators by Order
     while(index < this.operators.length){
 
      
       while(this.displayValue.indexOf(this.operators[index])>-1){
 
-
-       let operatorIndex=this.displayValue.indexOf(this.operators[index]);       
+       operatorIndex=this.displayValue.indexOf(this.operators[index]);       
        
-       let backSubstring=this.displayValue.substring(0,operatorIndex);
+       backSubstring=this.displayValue.substring(0,operatorIndex);
+       nextSubstring=this.displayValue.substring(operatorIndex+1);
 
-       let nextSubstring=this.displayValue.substring(operatorIndex+1);
-
-       let maxIndexOperator=-1;
-
-       let minIndexOperator=nextSubstring.length;      
+       maxIndexOperator=-1;
+       minIndexOperator=nextSubstring.length;      
 
        this.operators.forEach(op=>{maxIndexOperator=backSubstring.lastIndexOf(op)>maxIndexOperator?backSubstring.lastIndexOf(op):maxIndexOperator;});  
        
@@ -112,7 +123,7 @@ export class CalculatorDetailComponent implements OnInit {
 
   }
 
-  SetDisplay(value){
+  SetDisplay(value:ButtonType){
     
     if(this.ValidateInput(value.buttonValue, value.isOperator)){
 
@@ -129,20 +140,7 @@ export class CalculatorDetailComponent implements OnInit {
     //For Operators
     if(isOperator){
 
-      if(inputValue==="="){
 
-        //Search Operators and Calculate
-
-        this.SearchOperator();
-        return false;
-       }      
-      
-      if(inputValue==="CLEAR"){
-          this.Clear();
-          return false;
-
-      }      
-      
       //The First Value Cannt be a operator
 
       if(this.displayValue.length===0){
@@ -161,7 +159,22 @@ export class CalculatorDetailComponent implements OnInit {
 
         return false;
 
-      }     
+      }        
+      
+      if(inputValue==="="){
+
+        //Search Operators and Calculate
+
+        this.SearchOperator();
+        return false;
+       }      
+      
+      if(inputValue==="CLEAR"){
+          this.Clear();
+          return false;
+
+      }       
+      
 
     }
 
@@ -175,7 +188,17 @@ export class CalculatorDetailComponent implements OnInit {
   
   Calculate(){
 
-    switch(this.currentOperator){
+    var calculatorFactory=new CalculatorFactory();
+
+    var ICalculatorType=calculatorFactory.getCalculatorType(this.currentOperator);
+
+    this.result=ICalculatorType.Calculate(this.firstValue, this.secondValue);  
+
+    //Check division under cero
+
+    
+    
+    /*switch(this.currentOperator){
 
       case "+":
 
@@ -201,12 +224,12 @@ export class CalculatorDetailComponent implements OnInit {
 
       break;
 
-    }    
+    } */   
 
   }
 
 
-  Sum(){this.result=Number(this.firstValue)+Number(this.secondValue); }
+ /* Sum(){this.result=Number(this.firstValue)+Number(this.secondValue); }
 
   Rest(){this.result=Number(this.firstValue)-Number(this.secondValue);}
 
@@ -222,13 +245,12 @@ export class CalculatorDetailComponent implements OnInit {
       this.result=Number(this.firstValue) / Number(this.secondValue);
     }        
   
-  }
+  }*/
 
 
   Clear(){       
     this.result=0;
-    this.displayValue="", this.currentOperator="",this.firstValue="",this.secondValue="";  
-    //this.errorOp=false;  
+    this.displayValue="", this.currentOperator="",this.firstValue="",this.secondValue="";     
   }
 
 
