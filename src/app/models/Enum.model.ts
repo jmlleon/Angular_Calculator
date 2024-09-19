@@ -11,3 +11,13 @@ export enum BgModType{
     Sum='sum',
     Rest='rest'
   }
+
+  export enum OperatorType{
+    sum='+',
+    rest='-',
+    multi='*',
+    divide='/',
+    clear='CLEAR',
+    equal='='
+
+  }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ButtonType } from 'src/app/models/Calculator.model';
+import { ButtonType, ValidationType } from 'src/app/models/Calculator.model';
 import { CalculatorFactory } from 'src/app/models/CalculatorFactory.model';
-import { CalculatorType } from 'src/app/models/Enum.model';
-import { ICalculator } from 'src/app/models/Interfaces/ICalculator.model';
+import { OperatorType } from 'src/app/models/Enum.model';
+
 
 import { SnackBarService } from 'src/app/services/snackbar.service';
-import { CustomValidators } from 'src/app/share/validation/validation.directive';
+import { CustomValidatorsService } from 'src/app/services/validation.service';
 
 
 @Component({
@@ -18,44 +18,41 @@ export class CalculatorDetailComponent implements OnInit {
 
 
   formGroup:FormGroup;
-  result:number=0;
+  //result:number=0;
 
   displayValue:string="";
 
   operators:string[]=["/","*","-","+"];
-
   currentOperator:string="";
+  
   firstValue:string="";
   secondValue:string="";
   
   errorOp=false;
 
-  buttonType:ButtonType;
+  //validationObject:ValidationType={} as ValidationType;
 
   constructor(
     private fb:FormBuilder,
-    private snackBarSvc:SnackBarService   
+    private snackBarSvc:SnackBarService,
+    private customValidatorSvc:CustomValidatorsService   
 
   ) {
 
     this.formGroup=fb.group({
-
-      "inputField":["", [CustomValidators.calculatorValidator()]]//Validators.pattern()
-
+      "inputField":[""]//, [this.customValidatorSvc.calculatorValidator(this.validationObject)]
      }
     )
 
    }
 
-  ngOnInit(): void {   
-
+  ngOnInit(): void {  
+    
+   // this.formGroup.get("inputField").valueChanges.subscribe(value=>{console.log("The only value "+value); });
+  
   }
 
-  get inputField(){
-
-    return this.formGroup.get("inputField");
-
-  }
+  get inputField(){return this.formGroup.get("inputField"); }
 
   //***A method to search operators and calculate***
 
@@ -64,7 +61,8 @@ export class CalculatorDetailComponent implements OnInit {
 
     let index:number=0,operatorIndex=-1, maxIndexOperator=-1, minIndexOperator=-1;
     let backSubstring="",nextSubstring="";
-    this.errorOp=false;
+    
+    //this.errorOp=false;
 
     //Search Operators by Order
     while(index < this.operators.length){
@@ -78,108 +76,121 @@ export class CalculatorDetailComponent implements OnInit {
        nextSubstring=this.displayValue.substring(operatorIndex+1);
 
        maxIndexOperator=-1;
-       minIndexOperator=nextSubstring.length;      
-
-       this.operators.forEach(op=>{maxIndexOperator=backSubstring.lastIndexOf(op)>maxIndexOperator?backSubstring.lastIndexOf(op):maxIndexOperator;});  
+       minIndexOperator=nextSubstring.length;   
        
-       this.operators.forEach(op=>{minIndexOperator=nextSubstring.indexOf(op)<minIndexOperator && nextSubstring.indexOf(op) > -1 ?nextSubstring.indexOf(op):minIndexOperator;});
+       
+       //Find Max Index Operator
 
+       maxIndexOperator=this.FindMaxIndexOperator(backSubstring);
+
+       //Find Min Index Operator
+
+       minIndexOperator=this.FindMinIndexOperator(nextSubstring);
+     
        this.currentOperator=this.operators[index];
+       
        this.firstValue=backSubstring.substring(maxIndexOperator+1);
        this.secondValue=nextSubstring.substring(0, minIndexOperator);     
 
-       this.Calculate();     
+       var result=this.Calculate();     
        
-       if(this.errorOp){return;}
+       //if(this.errorOp){return;}
        
-       //To Check Last Operation
-       if(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length){
-         this.displayValue=backSubstring.substring(0,maxIndexOperator+1)+this.result.toString()+nextSubstring.substring(minIndexOperator); 
+       //To Check Last Operation     
+
+       this.displayValue=(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length) ? backSubstring.substring(0,maxIndexOperator+1)+result.toString()+nextSubstring.substring(minIndexOperator) :result.toString();
+       
+      /* if(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length){
+         this.displayValue=backSubstring.substring(0,maxIndexOperator+1)+result.toString()+nextSubstring.substring(minIndexOperator); 
         }
         else{
-        this.displayValue=this.result.toString();
-       }
-
-       
-      /*console.log('Operator Index '+operatorIndex);
-      console.log('Min index operator initial '+minIndexOperator)
-      console.log('Max index operator '+op+'index '+maxIndexOperator);
-      console.log('Min index operator '+op+'index '+minIndexOperator);
-
-      console.log('Back substring '+backSubstring);
-      console.log('Next substring '+nextSubstring);
-      console.log('Operator is '+this.operators[index]);
-      console.log(this.displayValue);
-      console.log('Index is '+index);*/
-       
+        this.displayValue=result.toString();
+       } */   
+      
 
       }
 
-      index++;
-      
+      index++;      
 
     }    
 
 
   }
 
-  SetDisplay(value:ButtonType){
-    
-    if(this.ValidateInput(value.buttonValue, value.isOperator)){
 
-      this.displayValue=this.displayValue+value.buttonValue;     
+  FindMaxIndexOperator(backSubstring:string){
+
+    //Try using find() and indexOf
+    //backSubstring.search('/' || '*').lastIndexOf
+
+    let maxIndexOperator=-1;
+
+    this.operators.forEach(op=>{    
+        
+        maxIndexOperator=backSubstring.lastIndexOf(op)>maxIndexOperator?backSubstring.lastIndexOf(op):maxIndexOperator;      
+         
+    }); 
+    
+    return maxIndexOperator;
+
+  }
+
+  FindMinIndexOperator(nextSubstring:string){
+
+    let minIndexOperator=nextSubstring.length;
+
+    this.operators.forEach(op=>{
+      minIndexOperator=nextSubstring.indexOf(op)<minIndexOperator && nextSubstring.indexOf(op) > -1 ? nextSubstring.indexOf(op):minIndexOperator;
+    
+    });
+
+    return minIndexOperator;
+
+  }
+
+
+
+  SetDisplay(value:ButtonType){
+
+    this.SetValidator(value);
+    
+    if(this.IsNotOperation(value) && !this.formGroup.get('inputField').hasError('validationError')){
+
+      this.displayValue=this.displayValue+value.buttonValue;           
 
     }   
 
   }
 
+  SetValidator(value:ButtonType){
+
+    var validationObject:ValidationType={buttonValue:value.buttonValue,isOperator:value.isOperator,displayValue:this.displayValue};
+
+    this.formGroup.get('inputField').setValidators([this.customValidatorSvc.calculatorValidator(validationObject)]);
+    this.formGroup.get('inputField').updateValueAndValidity();     
+
+  }
   
-  //Validate Input
-  ValidateInput(inputValue, isOperator:boolean){
+  //Check is Operation
+  IsNotOperation(value:ButtonType){
 
-    //For Operators
-    if(isOperator){
-
-
-      //The First Value Cannt be a operator
-
-      if(this.displayValue.length===0){
-
-        this.snackBarSvc.OpenSnackBar({title:"The First Value Cannt be a operator", type:"ERROR"});
-
-        return false;
-
-      }
-
-      //Avoid two operators sequence
-
-      if(this.operators.includes(this.displayValue.charAt(this.displayValue.length-1))){
-
-        this.snackBarSvc.OpenSnackBar({title:"Two or more squence operator not allowed", type:"ERROR"});
-
-        return false;
-
-      }        
+    //For Operators check validation error
+    if(value.isOperator){      
       
-      if(inputValue==="="){
-
+      if(value.buttonValue===OperatorType.equal){
         //Search Operators and Calculate
-
         this.SearchOperator();
         return false;
        }      
       
-      if(inputValue==="CLEAR"){
+      if(value.buttonValue===OperatorType.clear){
           this.Clear();
           return false;
-
-      }       
-      
+      }           
 
     }
 
     return true;
-
   }
 
 
@@ -190,68 +201,16 @@ export class CalculatorDetailComponent implements OnInit {
 
     var calculatorFactory=new CalculatorFactory();
 
-    var ICalculatorType=calculatorFactory.getCalculatorType(this.currentOperator);
+    var iCalculatorType=calculatorFactory.getCalculatorType(this.currentOperator);
 
-    this.result=ICalculatorType.Calculate(this.firstValue, this.secondValue);  
-
-    //Check division under cero
-
-    
-    
-    /*switch(this.currentOperator){
-
-      case "+":
-
-      this.Sum();
-
-      break;
-
-      case "-":
-
-      this.Rest();
-
-      break;
-
-      case "*":
-
-      this.Multi();
-
-      break;
-
-      default:
-
-      this.Divide()
-
-      break;
-
-    } */   
+    return iCalculatorType.Calculate(this.firstValue, this.secondValue);    
 
   }
-
-
- /* Sum(){this.result=Number(this.firstValue)+Number(this.secondValue); }
-
-  Rest(){this.result=Number(this.firstValue)-Number(this.secondValue);}
-
-  Multi(){this.result=Number(this.firstValue) * Number(this.secondValue); }
-
-  Divide(){
-
-    if(Number(this.secondValue)===0){
-      this.snackBarSvc.OpenSnackBar({title:"Div under cero not allowed", type:"ERROR"});
-      this.errorOp=true;
-      this.Clear();
-    }else{
-      this.result=Number(this.firstValue) / Number(this.secondValue);
-    }        
   
-  }*/
-
 
   Clear(){       
-    this.result=0;
+    //this.result=0;
     this.displayValue="", this.currentOperator="",this.firstValue="",this.secondValue="";     
   }
-
 
 }

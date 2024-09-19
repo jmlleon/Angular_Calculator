@@ -16,6 +16,8 @@ export class ButtonCard {
 
 export type ButtonType = Omit<ButtonCard, 'style' | 'buttonStyle'>;
 
+export type ValidationType= ButtonType & { displayValue: string }
+
 export class AddCalculator implements ICalculator {
   Calculate(value1: string, value2: string): number {
     return Number(value1) + Number(value2);
@@ -36,7 +38,8 @@ export class MultiCalculator implements ICalculator {
 
 export class DivideCalculator implements ICalculator {
 
- /* constructor(private snackBarSvc:SnackBarService){
+  
+ /*constructor(private snackBarSvc:SnackBarService){
   }*/
  
   Calculate(value1: string, value2: string): number {

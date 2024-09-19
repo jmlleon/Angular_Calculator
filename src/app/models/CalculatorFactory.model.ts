@@ -20,13 +20,7 @@ export class CalculatorFactory{
 
   }
 
-
-
 }
 
-/*
-  let userAges2: Map<string, ()=>ICalculator> = new Map([
-    ['John',  ()=>AddCalculator]   
-  ])*/
   
   
