@@ -26,7 +26,7 @@ constructor(private snackBarSvc:SnackBarService){ }
 
         //console.log('Control value is ' +control.value); 
 
-        console.log('Input Field Value ' +validationObject.displayValue); 
+        //console.log('Input Field Value ' +validationObject.displayValue); 
        
 
         if(validationObject.isOperator){            

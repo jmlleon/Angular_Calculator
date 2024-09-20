@@ -67,8 +67,11 @@ export class CalculatorDetailComponent implements OnInit {
     //Search Operators by Order
     while(index < this.operators.length){
 
+      let repeatCount=this.FindOperatorCount(this.displayValue,this.operators[index]);
      
-      while(this.displayValue.indexOf(this.operators[index])>-1){
+      //console.log(`Operator ${this.operators[index]} times ${repeatCount}`);
+      //
+      while(repeatCount>0){
 
        operatorIndex=this.displayValue.indexOf(this.operators[index]);       
        
@@ -106,7 +109,9 @@ export class CalculatorDetailComponent implements OnInit {
         else{
         this.displayValue=result.toString();
        } */   
-      
+       
+
+        repeatCount--;
 
       }
 
@@ -115,6 +120,19 @@ export class CalculatorDetailComponent implements OnInit {
     }    
 
 
+  }
+
+  FindOperatorCount(displayValue:string, operator:string){
+
+    let repeatNumber=0, pos=0;    
+
+      while(displayValue.indexOf(operator,pos)>-1){
+        repeatNumber++;
+        pos=displayValue.indexOf(operator,pos);      
+        pos++;       
+      } 
+
+      return repeatNumber;    
   }
 
 
