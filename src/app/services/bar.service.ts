@@ -9,7 +9,6 @@ import { BgModType } from '../models/Enum.model';
 
 export class BarService { 
 
-
   private toggle: boolean = false;
   private toggleSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public toggle$: Observable<boolean> = new Observable<boolean>();
@@ -34,14 +33,9 @@ export class BarService {
   }
 
   
-  public setBgMode(){   
+  public setBgMode(){ 
 
-    if (this.bgMode === BgModType.blue) {
-      this.bgMode=BgModType.black;         
-    } else {
-      this.bgMode=BgModType.blue;
-    }
-
+    this.bgMode=this.bgMode === BgModType.blue ? BgModType.black:BgModType.blue;
     this.bgModeSubject.next(this.bgMode);    
 
   }

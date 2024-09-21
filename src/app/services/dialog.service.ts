@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../share/dialog/dialog.component';
 
@@ -8,19 +8,18 @@ import { DialogComponent } from '../share/dialog/dialog.component';
 
 export class DialogService {
 
-  constructor(
-    private matDialog: MatDialog
-  ) { }
+  matDialog=inject(MatDialog);
 
+  constructor() {}
 
 
   OpenDialog(data: string): MatDialogRef<DialogComponent, any> {
 
-    let matDialogConf = new MatDialogConfig();
-
-    matDialogConf.data = data;
-    matDialogConf.width='400px';
-    matDialogConf.panelClass=['dialogConf']
+    let matDialogConf:MatDialogConfig ={
+      data:data,
+      width:'400px',
+      panelClass:['dialogConf']
+    };  
 
     return this.matDialog.open(DialogComponent, matDialogConf)
 

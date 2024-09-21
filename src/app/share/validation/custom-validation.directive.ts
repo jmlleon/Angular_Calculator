@@ -13,17 +13,10 @@ export function calculatorValidator(buttonObject:ButtonType): ValidatorFn {
       if (control.value == null || control.value == '') {
           
           return null;
-        }
-
-      console.log(`Stringfy ${buttonObject.buttonValue} ${buttonObject.isOperator}`);
+        }     
       
-      const value = control.value;
-
-      //console.log('The value2 is ' +value2); 
-
-      console.log('The value is ' +value);  
-    
-     //return {passwordStrength:true};
+      const value = control.value;   
+     
 
      return null;
       

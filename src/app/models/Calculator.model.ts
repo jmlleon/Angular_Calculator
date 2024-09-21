@@ -1,4 +1,3 @@
-import { SnackBarService } from '../services/snackbar.service';
 import { ICalculator } from './Interfaces/ICalculator.model';
 
 export class ButtonCard {
@@ -13,6 +12,14 @@ export class ButtonCard {
     this.isOperator = isOperator;
   }
 }
+
+export type SnackBarData={
+
+  title:string,
+  type:string
+  
+}
+
 
 export type ButtonType = Omit<ButtonCard, 'style' | 'buttonStyle'>;
 
@@ -37,23 +44,11 @@ export class MultiCalculator implements ICalculator {
 }
 
 export class DivideCalculator implements ICalculator {
-
-  
- /*constructor(private snackBarSvc:SnackBarService){
-  }*/
  
   Calculate(value1: string, value2: string): number {
 
-    if(Number(value2)===0){
-      
-      //this.snackBarSvc.OpenSnackBar({title:"Div under cero not allowed", type:"ERROR"});
-
-      return -1;
-      //this.errorOp=true;
-      //this.Clear();
-    }else{
       return Number(value1) / Number(value2);
-    }        
+            
   }
 }
 

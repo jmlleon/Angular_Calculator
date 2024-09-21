@@ -1,45 +1,30 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../share/snack-bar/snack-bar.component';
+import { SnackBarData } from '../models/Calculator.model';
 
-
-type SnackBarData={
-
-  title:string,
-  type:string
-  
-  }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SnackBarService {
 
-  constructor(
-    private snackBar:MatSnackBar
-  ) { }
+  snackBar=inject(MatSnackBar);
+
+  constructor() {}
  
 
   OpenSnackBar(data: SnackBarData) {
 
-    let snb = this.snackBar.openFromComponent(SnackBarComponent, { data: data, duration: 5000, panelClass:['snackBar'] })//duration: 5000 
-
-    snb.afterDismissed().subscribe(() => {
-     // console.log("cerrado");
-      
-    })
-
+     this.snackBar.openFromComponent(SnackBarComponent, { data: data, duration: 5000, panelClass:['snackBar']});
+    //snb.afterDismissed().subscribe(() => { console.log("dismiss")});
 
   }
 
   OpenSnackBarTest(content:string, action:string) {
 
-    let snb = this.snackBar.open(content, action, { duration: 5000, panelClass:['snackBar-green'] });//validateVerticalPosition, horizontalPosition
-
-    snb.onAction().subscribe(() => {
-
-      snb.dismiss();
-    });
+    this.snackBar.open(content, action, { duration: 5000, panelClass:['snackBar-green'] });
+    //snb.onAction().subscribe(() => {snb.dismiss();});
 
   }
 

@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { inject, Injectable} from '@angular/core';
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { ValidationType } from 'src/app/models/Calculator.model';
 import { OperatorType } from 'src/app/models/Enum.model';
@@ -13,28 +13,21 @@ export class CustomValidatorsService{
 
 operators:string[]=["/","*","-","+"];
 
-constructor(private snackBarSvc:SnackBarService){ }    
+private snackBarSvc=inject(SnackBarService);
+
+constructor(){ }    
 
   
    calculatorValidator(validationObject:ValidationType): ValidatorFn {
   
-    return (control:AbstractControl) : ValidationErrors | null => {
+    return (control:AbstractControl) : ValidationErrors | null => {       
 
-        //avoid validation if empty, we are not testing for required here
-
-        //console.log(`Button Value ${validationObject.buttonValue} ${validationObject.isOperator}`);        
-
-        //console.log('Control value is ' +control.value); 
-
-        //console.log('Input Field Value ' +validationObject.displayValue); 
-       
-
-        if(validationObject.isOperator){            
+        if(validationObject.isOperator && validationObject.buttonValue!==OperatorType.clear && validationObject.buttonValue!==OperatorType.equal){      
 
           
             //The First Value Cannt be a operator
       
-            if(validationObject.displayValue.length===0){
+            if(validationObject.displayValue.length===0){//&& validationObject.buttonValue!==OperatorType.rest
 
                this.snackBarSvc.OpenSnackBar({title:"The First Value Cannt be a operator", type:"ERROR"});             
               
@@ -68,29 +61,3 @@ constructor(private snackBarSvc:SnackBarService){ }
 }
 
 }
-
-
-/*
-export function calculatorValidator(): ValidatorFn {
-  
-    return (control:AbstractControl) : ValidationErrors | null => {
-
-        const value = control.value;
-
-        if (!value) {
-            return null;
-        }
-
-        const hasUpperCase = /[A-Z]+/.test(value);
-
-        const hasLowerCase = /[a-z]+/.test(value);
-
-        const hasNumeric = /[0-9]+/.test(value);
-
-        const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
-
-        return !passwordValid ? {passwordStrength:true}: null;
-    }
-}
-
-*/

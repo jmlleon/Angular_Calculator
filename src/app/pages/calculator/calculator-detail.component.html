@@ -12,9 +12,7 @@
 
       <input matInput formControlName="inputField" type="text" [value]="displayValue" [readonly]="true">    
         
-       <div class="field-message" *ngIf="inputField?.hasError('validationError')"> 
-         
-      </div>
+       <div class="field-message" *ngIf="inputField?.hasError('validationError')"></div>
 
       </mat-form-field>
 

@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, ValidationType } from 'src/app/models/Calculator.model';
 import { CalculatorFactory } from 'src/app/models/CalculatorFactory.model';
 import { OperatorType } from 'src/app/models/Enum.model';
 
-
-import { SnackBarService } from 'src/app/services/snackbar.service';
 import { CustomValidatorsService } from 'src/app/services/validation.service';
 
 
@@ -17,8 +15,7 @@ import { CustomValidatorsService } from 'src/app/services/validation.service';
 export class CalculatorDetailComponent implements OnInit {
 
 
-  formGroup:FormGroup;
-  //result:number=0;
+  formGroup:FormGroup;  
 
   displayValue:string="";
 
@@ -26,29 +23,23 @@ export class CalculatorDetailComponent implements OnInit {
   currentOperator:string="";
   
   firstValue:string="";
-  secondValue:string="";
-  
-  errorOp=false;
+  secondValue:string=""; 
 
-  //validationObject:ValidationType={} as ValidationType;
 
-  constructor(
-    private fb:FormBuilder,
-    private snackBarSvc:SnackBarService,
-    private customValidatorSvc:CustomValidatorsService   
+  customValidatorSvc=inject(CustomValidatorsService);
+  fb=inject(FormBuilder);
 
-  ) {
+  constructor() {
 
-    this.formGroup=fb.group({
-      "inputField":[""]//, [this.customValidatorSvc.calculatorValidator(this.validationObject)]
+    this.formGroup=this.fb.group({
+      "inputField":[""]
      }
     )
 
    }
 
   ngOnInit(): void {  
-    
-   // this.formGroup.get("inputField").valueChanges.subscribe(value=>{console.log("The only value "+value); });
+  
   
   }
 
@@ -60,17 +51,14 @@ export class CalculatorDetailComponent implements OnInit {
    
 
     let index:number=0,operatorIndex=-1, maxIndexOperator=-1, minIndexOperator=-1;
-    let backSubstring="",nextSubstring="";
-    
-    //this.errorOp=false;
+    let backSubstring="",nextSubstring="";   
+   
 
     //Search Operators by Order
     while(index < this.operators.length){
 
-      let repeatCount=this.FindOperatorCount(this.displayValue,this.operators[index]);
-     
-      //console.log(`Operator ${this.operators[index]} times ${repeatCount}`);
-      //
+      let repeatCount=this.FindOperatorCount(this.displayValue,this.operators[index]);     
+      
       while(repeatCount>0){
 
        operatorIndex=this.displayValue.indexOf(this.operators[index]);       
@@ -93,33 +81,24 @@ export class CalculatorDetailComponent implements OnInit {
        this.currentOperator=this.operators[index];
        
        this.firstValue=backSubstring.substring(maxIndexOperator+1);
-       this.secondValue=nextSubstring.substring(0, minIndexOperator);     
+       this.secondValue=nextSubstring.substring(0, minIndexOperator);
+       
+       console.log(`first value ${this.firstValue} secondavalue ${this.secondValue}`);
 
-       var result=this.Calculate();     
-       
-       //if(this.errorOp){return;}
-       
+       var result=this.Calculate();       
+         
        //To Check Last Operation     
 
        this.displayValue=(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length) ? backSubstring.substring(0,maxIndexOperator+1)+result.toString()+nextSubstring.substring(minIndexOperator) :result.toString();
        
-      /* if(maxIndexOperator!==-1 || minIndexOperator!==nextSubstring.length){
-         this.displayValue=backSubstring.substring(0,maxIndexOperator+1)+result.toString()+nextSubstring.substring(minIndexOperator); 
-        }
-        else{
-        this.displayValue=result.toString();
-       } */   
-       
-
         repeatCount--;
 
       }
 
       index++;      
 
-    }    
-
-
+    }  
+  
   }
 
   FindOperatorCount(displayValue:string, operator:string){
@@ -136,10 +115,7 @@ export class CalculatorDetailComponent implements OnInit {
   }
 
 
-  FindMaxIndexOperator(backSubstring:string){
-
-    //Try using find() and indexOf
-    //backSubstring.search('/' || '*').lastIndexOf
+  FindMaxIndexOperator(backSubstring:string){   
 
     let maxIndexOperator=-1;
 
@@ -226,8 +202,7 @@ export class CalculatorDetailComponent implements OnInit {
   }
   
 
-  Clear(){       
-    //this.result=0;
+  Clear(){     
     this.displayValue="", this.currentOperator="",this.firstValue="",this.secondValue="";     
   }
 

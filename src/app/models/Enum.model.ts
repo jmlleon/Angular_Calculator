@@ -7,11 +7,6 @@ export enum BgModType{
   }
 
 
-  export enum CalculatorType{    
-    Sum='sum',
-    Rest='rest'
-  }
-
   export enum OperatorType{
     sum='+',
     rest='-',
