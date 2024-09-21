@@ -1,15 +1,18 @@
 import { compileFactoryFunction } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {faHome,faMoon} from '@fortawesome/free-solid-svg-icons';
 import { BarService } from '../services/bar.service';
 import { SnackBarService } from '../services/snackbar.service';
+import { BgModType } from '../models/Enum.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.css'],
 })
-export class BarComponent implements OnInit {
+export class BarComponent implements OnInit, OnDestroy {
+  
   faHome = faHome;  
   faMoon = faMoon;  
 
@@ -17,10 +20,17 @@ export class BarComponent implements OnInit {
 
   bgModeValue: string = '';  
 
-  constructor(
-    private barService: BarService   
-    
-  ) {}
+  isDark=false;
+
+
+  barService$:Subscription;
+
+  barService=inject(BarService);
+
+  constructor() {}
+
+
+  
 
   ngOnInit() {      
 
@@ -30,8 +40,10 @@ export class BarComponent implements OnInit {
   
 
   bgModeLoad() {
-    this.barService.bgMode$.subscribe((mode) => {
-      this.bgModeValue = mode;      
+   
+   this.barService$=this.barService.bgMode$.subscribe((mode) => {
+      this.bgModeValue = mode;  
+      this.isDark=this.bgModeValue===BgModType.black ? true:false;    
     });
   }
 
@@ -42,4 +54,9 @@ export class BarComponent implements OnInit {
   setBgMode() {     
     this.barService.setBgMode();   
   }
+
+  ngOnDestroy(): void {
+    this.barService$.unsubscribe();
+  }
+  
 }

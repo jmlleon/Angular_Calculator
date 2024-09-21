@@ -2,13 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //Modulos********
-//import { MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 
 import {MatGridListModule} from '@angular/material/grid-list';
-
-//import {MatPaginatorModule} from '@angular/material/paginator';
-//import {MatTableModule} from '@angular/material/table';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';

@@ -22,27 +22,14 @@ export class OperationBarComponent implements OnInit {
 
   constructor(private router:Router) { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
 
-  goAdd(){
+  goAdd=()=>this.router.navigate([this.addUrl]);  
 
-    this.router.navigate([this.addUrl]);
+  goBack=()=>this.router.navigate([this.backUrl]);  
 
-  }
-
-  goBack(){
-
-    this.router.navigate([this.backUrl]);
-  }
-
-  goFoward(){
-
-    this.router.navigate([this.goUrl]);
-
-  }
+  goFoward=()=>this.router.navigate([this.goUrl]);  
 
 
 }

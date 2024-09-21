@@ -5,3 +5,14 @@ export enum BgModType{
     black="mat-elevation-z3 bg-black hover:bg-gray-700"
     
   }
+
+
+  export enum OperatorType{
+    sum='+',
+    rest='-',
+    multi='*',
+    divide='/',
+    clear='CLEAR',
+    equal='='
+
+  }

@@ -1,10 +1,8 @@
-<!-- <div class="bg-white w-[50%] mx-auto mb-2"><span class="text-lg text-indigo-600 bold my-16">Angular Calculator</span></div> -->
-
 <title-bar [title]="'Angular Calculator'"></title-bar>
 
 <!--Check  Calculator With on Small Devices-->
 
-<form [formGroup]="formGroup" class="w-full md:w-[50%] md:h-auto xl:w-[50%] xl:h-auto mx-auto"><!--border-2 border-solid border-green-700-->
+<form [formGroup]="formGroup" class="w-full md:w-[50%] md:h-auto xl:w-[50%] xl:h-auto mx-auto">
 
 <div class="form-group">
    
@@ -12,7 +10,9 @@
 
       <mat-form-field appearance="outline" class="w-full">
 
-      <input matInput formControlName="main-input" type="text" [value]="displayValue" [readonly]="true">
+      <input matInput formControlName="inputField" type="text" [value]="displayValue" [readonly]="true">    
+        
+       <div class="field-message" *ngIf="inputField?.hasError('validationError')"></div>
 
       </mat-form-field>
 

@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { faFacebook, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { BarService } from '../services/bar.service';
 import { BgModType } from '../models/Enum.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'footer-component',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
 
   bgModeValue:string=BgModType.blue;
 
-  faTwitter=faTwitter;faFacebook=faFacebook;faYoutube=faYoutube;
+  year=()=>new Date().getFullYear(); 
 
-  constructor(private barService:BarService) { }
+  barService=inject(BarService);
+
+  barService$:Subscription;
+
+  constructor() { } 
 
   ngOnInit(): void {
 
@@ -23,10 +27,15 @@ export class FooterComponent implements OnInit {
   
   bgModeLoad() {
 
-    this.barService.bgMode$.subscribe(mode => {
+    this.barService$=this.barService.bgMode$.subscribe(mode => {
       this.bgModeValue = mode;      
 
     })
 
   }
+
+  ngOnDestroy(): void {
+    this.barService$.unsubscribe();
+  }
+
 }

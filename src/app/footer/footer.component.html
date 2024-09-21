@@ -1,4 +1,4 @@
-<footer [class]="bgModeValue+' mt-2 w-full inset-x-0 border-t-2 rounded-t-md'">
+<footer [class]="'mt-2 w-full inset-x-0 border-t-2 rounded-t-md '+bgModeValue">
 
   <div class="container"> 
    
@@ -6,7 +6,7 @@
     
       <div class="col h-10">
         
-        Calculator Tool © 2022 Copyright 
+        Calculator Tool © {{year()}} Copyright 
 
       </div>        
       

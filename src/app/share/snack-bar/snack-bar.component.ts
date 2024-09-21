@@ -1,12 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import {MatSnackBar, MatSnackBarRef, MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
+import { MatSnackBarRef, MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
+import { SnackBarData } from 'src/app/models/Calculator.model';
 
-type SnackBarData={
 
-title:string,
-type:string
-
-}
 
 @Component({
   selector: 'snack-bar',
@@ -27,25 +23,7 @@ export class SnackBarComponent implements OnInit {
   }
 
 
-  Close(){
-  this.sbRef.dismiss();
-  }
-
-  afterDismissed(){
-
-    this.sbRef.afterDismissed().subscribe(()=>{
-
-      //console.log("Dismissed");
-    })
-  }
-
-  onAction(){
-
-    this.sbRef.onAction().subscribe(()=>{
-
-      //console.log("OnAction");
-    })
-
-  }
+  Close=()=> this.sbRef.dismiss();
+  
 
 }
