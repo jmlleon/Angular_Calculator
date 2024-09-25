@@ -4,15 +4,16 @@
 
 <form [formGroup]="formGroup" class="w-full md:w-[50%] md:h-auto xl:w-[50%] xl:h-auto mx-auto">
 
-<div class="form-group">
+<div class="form-group"><!-- keypressListener-->
    
    <div class="rounded-md border border-solid border-slate-600 mt-2 p-4">
 
       <mat-form-field appearance="outline" class="w-full">
 
-      <input matInput formControlName="inputField" type="text" [value]="displayValue" [readonly]="true">    
+      <input matInput  formControlName="inputField" type="text" [value]="displayValue" [readonly]="true">  <!--(keyup)="KeyPressDisplay($event)"  (keyup)-->  
         
        <div class="field-message" *ngIf="inputField?.hasError('validationError')"></div>
+       <div class="field-message" *ngIf="inputField?.hasError('pattern')">Error pattern</div>
 
       </mat-form-field>
 
@@ -22,7 +23,7 @@
 
 <div class="rounded-md border border-solid border-slate-600 mt-3 p-4 text-center h-[500px]">
    
-<calculator-card (buttonEmitter)="SetDisplay($event)" ></calculator-card>
+<calculator-card [focusValue]="focusValue" (buttonEmitter)="ButtonClickDisplay($event)" #calculator></calculator-card>
 
 </div>
 

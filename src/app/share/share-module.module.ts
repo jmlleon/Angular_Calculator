@@ -7,6 +7,7 @@ import { SnackBarComponent } from './snack-bar/snack-bar.component';
 import { OperationBarComponent } from '../bar/operation-bar/operation-bar.component';
 import { MaterialModule } from '../material.module';
 import { CustomValidationDirective } from './validation/custom-validation.directive';
+import { SetButtonFocusDirective } from './directives/set-button-focus.directive';
 
 
 
@@ -18,6 +19,8 @@ import { CustomValidationDirective } from './validation/custom-validation.direct
     SnackBarComponent,
     OperationBarComponent,
     CustomValidationDirective,
+   
+   
    
 
   ],

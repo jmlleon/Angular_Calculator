@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ButtonCard, ButtonType } from 'src/app/models/Calculator.model';
 import { BarService } from 'src/app/services/bar.service';
 
@@ -6,11 +6,14 @@ import { BarService } from 'src/app/services/bar.service';
 @Component({
   selector: 'calculator-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css']
+  styleUrls: ['./card.component.css'],
+  //changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class CalculatorCardComponent implements OnInit, OnChanges {
+export class CalculatorCardComponent implements OnInit {
 
   bgModeValue:string="";
+
+  @Input() focusValue:string="";
 
   communStyle:string[]=[
     'flex items-center justify-center border border-slate-300 border-solid px-2',
@@ -39,10 +42,11 @@ export class CalculatorCardComponent implements OnInit, OnChanges {
 
   @Output() buttonEmitter=new EventEmitter<ButtonType>();
 
-  constructor(private barSvc:BarService) { }
+  barSvc=inject(BarService);
+
+  constructor() { }
 
   ngOnInit(): void {
-
     this.setBgMode();
   }
 
@@ -50,11 +54,7 @@ export class CalculatorCardComponent implements OnInit, OnChanges {
     this.barSvc.bgMode$.subscribe(mode=>{
       this.bgModeValue=mode;
     })
-  }
-
-  ngOnChanges(){
-    
-  }
+  } 
 
   SetDisplay(value:string, isOperator:boolean){    
     this.buttonEmitter.emit({buttonValue:value,isOperator:isOperator});

@@ -13,6 +13,8 @@ export class CustomValidatorsService{
 
 operators:string[]=["/","*","-","+"];
 
+allowedValues="/[0-9]/";
+
 private snackBarSvc=inject(SnackBarService);
 
 constructor(){ }    
@@ -20,9 +22,15 @@ constructor(){ }
   
    calculatorValidator(validationObject:ValidationType): ValidatorFn {
   
-    return (control:AbstractControl) : ValidationErrors | null => {       
+    return (control:AbstractControl) : ValidationErrors | null => {      
+      
+      
+      //Try to Check that is a number
 
-        if(validationObject.isOperator && validationObject.buttonValue!==OperatorType.clear && validationObject.buttonValue!==OperatorType.equal){      
+      let isNotOperator=validationObject.buttonValue!==OperatorType.clear && validationObject.buttonValue!==OperatorType.equal && validationObject.buttonValue!==OperatorType.enter && validationObject.buttonValue!==OperatorType.backspace
+
+
+        if(validationObject.isOperator && isNotOperator){      
 
           
             //The First Value Cannt be a operator
@@ -59,5 +67,7 @@ constructor(){ }
         
     }
 }
+
+//numberValidator(validationObject:ValidationType):Valida
 
 }

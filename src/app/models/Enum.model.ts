@@ -13,6 +13,8 @@ export enum BgModType{
     multi='*',
     divide='/',
     clear='CLEAR',
-    equal='='
+    equal='=',
+    enter='Enter',
+    backspace='Backspace'
 
   }
