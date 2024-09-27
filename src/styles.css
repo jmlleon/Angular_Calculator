@@ -1,42 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-@import "~@angular/material/prebuilt-themes/purple-green.css"; */
-
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* 
 
-"styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/materialize-css/dist/css/materialize.css"
-            ],
-            "scripts": [                          
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/materialize-css/dist/js/materialize.js"
-            ]            
-          },*/
-
-.miborde {
+.testborder {
   border: 1px solid black;
 }
 
-#bgImage {
-  background-image: url("assets/background/s1.jpg");
-  background-size: 100%;
-  background-attachment: fixed;
-  background-size: cover;
-  /* background-position: 0 0; */
-}
 
 
 

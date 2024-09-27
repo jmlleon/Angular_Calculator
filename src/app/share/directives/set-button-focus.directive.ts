@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { BgModType } from 'src/app/models/Enum.model';
+import { BarService } from 'src/app/services/bar.service';
 
 @Directive({
   selector: '[SetFocus]'
@@ -8,44 +9,61 @@ export class SetButtonFocusDirective implements OnInit, OnChanges {
 
   elementRef=inject(ElementRef);
   render=inject(Renderer2);
+  barSvc=inject(BarService);
+
+  bgModeValue:string;
 
   @Input() focusValue:string;
 
   constructor() { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {  
+    
+    this.barSvc.bgMode$.subscribe((bgMode)=>{
+      this.bgModeValue=bgMode;
+    });
+
   }
 
-//changes: SimpleChanges
   ngOnChanges(): void {
    
-    console.log("The Focus Value"+this.focusValue); 
-    
-    //Check for Enter Keypress Value iqual ==
+    //console.log("The Focus Value"+this.focusValue);    
 
     let button=this.elementRef.nativeElement;
+
+    if(this.bgModeValue===BgModType.blue && button.id===this.focusValue){
+
+      this.render.addClass(button,"bg-red-600");
+
+      setTimeout(()=>{
+        this.render.removeClass(button,"bg-red-600");    
+       
+      }   
+      
+      ,1000);   
+
+    }
     
-    if(button.id===this.focusValue){      
-    
+    if(this.bgModeValue===BgModType.black && button.id===this.focusValue){ 
+      
+      this.render.removeClass(button,"bg-black");
       this.render.addClass(button,"bg-red-600");
 
       setTimeout(()=>{
 
-        this.render.removeClass(button,"bg-red-600");
-        this.RemoveClassDarkMode();
-        //this.render.removeClass(button,"bg-black");
-        // black="mat-elevation-z3 bg-black hover:bg-gray-700"
-        //Fix for Dark Mode
+        this.render.removeClass(button,"bg-red-600"); 
+        this.render.addClass(button,"bg-black");   
+       
       }   
       
-      ,1000);   
+      ,1000);        
     
     }
 
     
   }
 
-  AddClassDarkMode(){
+  /*AddClassDarkMode(){
 
     let bgmode=BgModType.black.split(" ");
 
@@ -68,6 +86,6 @@ export class SetButtonFocusDirective implements OnInit, OnChanges {
       this.render.removeClass(this.elementRef.nativeElement,e);
 
     });
-  } 
+  } */
 
 }

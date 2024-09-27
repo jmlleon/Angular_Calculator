@@ -1,17 +1,15 @@
-import {
+import { 
   AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
+  Component,  
+  ElementRef,  
   HostListener,
   inject,
-  OnInit,
-  QueryList,
+  OnInit, 
   Renderer2,
   ViewChild,
-  ViewChildren,
+
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { ButtonType, ValidationType } from 'src/app/models/Calculator.model';
 import { CalculatorFactory } from 'src/app/models/CalculatorFactory.model';
 import { OperatorType } from 'src/app/models/Enum.model';
@@ -21,8 +19,7 @@ import { CustomValidatorsService } from 'src/app/services/validation.service';
 @Component({
   selector: 'calculator-detail',
   templateUrl: './calculator-detail.component.html',
-  styleUrls: ['./calculator-detail.component.css'],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./calculator-detail.component.css'],  
 })
 export class CalculatorDetailComponent implements OnInit {
   formGroup: FormGroup;
@@ -38,19 +35,20 @@ export class CalculatorDetailComponent implements OnInit {
   customValidatorSvc = inject(CustomValidatorsService);
   fb = inject(FormBuilder);
 
-  allowedValues = '/[0-9]|+|-|*|/';
+  //allowedValues = '/^[0-9][\+|\\-|\*|\/][0-9]$/';
   regExpNumber = new RegExp('[0-9]');
-  regExpSimbols = new RegExp('[+|\\-|*|/]|^(Enter|Backspace)$');
+  regExpSimbols = new RegExp('[+|\\-|*|./]|^(Enter|Backspace)$');
 
-  focusValue: string;
+  focusValue: string="";
 
-  constructor(private renderer: Renderer2) {
+  constructor() {
     this.formGroup = this.fb.group({
-      inputField: [''], //Validators.pattern(this.regExpNumber)
+      inputField: [""]
     });
-  }
+  } 
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
 
   get inputField() {
     return this.formGroup.get('inputField');
@@ -93,9 +91,7 @@ export class CalculatorDetailComponent implements OnInit {
         this.currentOperator = this.operators[index];
 
         this.firstValue = backSubstring.substring(maxIndexOperator + 1);
-        this.secondValue = nextSubstring.substring(0, minIndexOperator);
-
-        //console.log(`first value ${this.firstValue} secondavalue ${this.secondValue}`);
+        this.secondValue = nextSubstring.substring(0, minIndexOperator);      
 
         var result = this.Calculate();
 
@@ -156,14 +152,10 @@ export class CalculatorDetailComponent implements OnInit {
   }
 
   @HostListener('window:keyup', ['$event'])
-  KeyPressDisplay(event: KeyboardEvent) {
-    let value = event.key;
-    //console.log("The event "+value);
-    /*let value:string=(event.target as HTMLInputElement).value;   
-    Change to ButtonType value   
-    console.log("Is number "+this.regExpNumber.test(value));
-    console.log("Is symbol "+this.regExpSimbols.test(value));*/
-
+  KeyPressDisplay(event: KeyboardEvent) {   
+   
+    let value = event.key;     
+    
     if (this.regExpNumber.test(value) || this.regExpSimbols.test(value)) {
       
       if (value === OperatorType.enter) {
@@ -171,9 +163,7 @@ export class CalculatorDetailComponent implements OnInit {
       }
       if (value === OperatorType.backspace) {
         value = OperatorType.clear;
-      }
-
-      //console.log("Dispaly Value "+this.displayValue);
+      }     
 
       let buttonValue: ButtonType = {
         buttonValue: value,
@@ -191,15 +181,16 @@ export class CalculatorDetailComponent implements OnInit {
 
     this.SetValidator(value);
 
-    if (
-      this.IsNotOperation(value) &&
-      !this.formGroup.get('inputField').hasError('validationError')
+    if (!this.formGroup.get('inputField').hasError('validationError') && this.IsNotOperation(value)
+     
     ) {
       this.displayValue = this.displayValue + value.buttonValue;
+      console.log("Display value "+this.displayValue);
     }
   }
 
   SetValidator(value: ButtonType) {
+   
     var validationObject: ValidationType = {
       buttonValue: value.buttonValue,
       isOperator: value.isOperator,
@@ -210,7 +201,7 @@ export class CalculatorDetailComponent implements OnInit {
       .get('inputField')
       .setValidators([
         this.customValidatorSvc.calculatorValidator(validationObject),
-      ]); //Validators.pattern(this.allowedValues),
+      ]); 
     this.formGroup.get('inputField').updateValueAndValidity();
   }
 
@@ -218,22 +209,12 @@ export class CalculatorDetailComponent implements OnInit {
   IsNotOperation(value: ButtonType) {
     //For Operators check validation error
     if (value.isOperator) {
-      if (
-        value.buttonValue === OperatorType.equal ||
-        value.buttonValue === OperatorType.enter
-      ) {
-        //console.log("is enter "+value.buttonValue);
+      if (value.buttonValue === OperatorType.equal) {       
         //Search Operators and Calculate
         this.SearchOperator();
         return false;
       }
-
-      if (value.buttonValue === OperatorType.backspace) {
-        //Implement to remove the last character
-        this.Clear();
-
-        return false;
-      }
+    
 
       if (value.buttonValue === OperatorType.clear) {
         this.Clear();

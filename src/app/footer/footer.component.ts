@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { BarService } from '../services/bar.service';
 import { BgModType } from '../models/Enum.model';
 import { Subscription } from 'rxjs';
+import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'footer-component',
@@ -17,6 +18,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   barService=inject(BarService);
 
   barService$:Subscription;
+
+  faSmile=faSmile;
 
   constructor() { } 
 
