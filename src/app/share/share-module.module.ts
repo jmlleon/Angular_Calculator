@@ -9,8 +9,6 @@ import { MaterialModule } from '../material.module';
 import { CustomValidationDirective } from './validation/custom-validation.directive';
 
 
-
-
 @NgModule({
   declarations: [
     TitleBarComponent,
@@ -18,6 +16,8 @@ import { CustomValidationDirective } from './validation/custom-validation.direct
     SnackBarComponent,
     OperationBarComponent,
     CustomValidationDirective,
+   
+   
    
 
   ],

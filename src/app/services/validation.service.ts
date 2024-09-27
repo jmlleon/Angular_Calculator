@@ -20,9 +20,16 @@ constructor(){ }
   
    calculatorValidator(validationObject:ValidationType): ValidatorFn {
   
-    return (control:AbstractControl) : ValidationErrors | null => {       
+    return (control:AbstractControl) : ValidationErrors | null => {      
+      
+      
+      //Try to Check that is a number
 
-        if(validationObject.isOperator && validationObject.buttonValue!==OperatorType.clear && validationObject.buttonValue!==OperatorType.equal){      
+      let isNotAllowedOperator=validationObject.buttonValue!==OperatorType.clear;
+
+    //&& validationObject.buttonValue!==OperatorType.equal
+
+        if(validationObject.isOperator && isNotAllowedOperator){      
 
           
             //The First Value Cannt be a operator
@@ -59,5 +66,6 @@ constructor(){ }
         
     }
 }
+
 
 }

@@ -13,6 +13,7 @@ import { IndexComponent } from './index/index.component';
 
 import { CalculatorDetailComponent } from './calculator/calculator-detail.component';
 import { CalculatorCardComponent } from './calculator/card/card.component';
+import { SetButtonFocusDirective } from '../share/directives/set-button-focus.directive';
 
 
 
@@ -27,7 +28,8 @@ const routes:Routes=[
   declarations: [         
     IndexComponent,   
     CalculatorDetailComponent,
-    CalculatorCardComponent
+    CalculatorCardComponent,   
+    SetButtonFocusDirective
 
   ],
   imports: [
